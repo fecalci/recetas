@@ -1,7 +1,15 @@
 package com.example.recetas.recetas.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Tipo {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idTipo;
+
     private String descripcion;
 
     public Tipo() {

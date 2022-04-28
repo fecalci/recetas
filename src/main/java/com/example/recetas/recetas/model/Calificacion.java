@@ -1,16 +1,22 @@
 package com.example.recetas.recetas.model;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+@Entity
+@Table
 public class Calificacion {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idCalificacion;
+
     @ManyToOne
     @JoinColumn(name ="idUsuario")
     private Usuario idUsuario;
+
     @ManyToOne
     @JoinColumn(name ="idReceta")
     private Receta idReceta;
+
     private int calificacion;
     private String comentarios;
 

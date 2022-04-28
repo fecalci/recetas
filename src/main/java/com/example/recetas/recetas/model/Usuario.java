@@ -7,17 +7,9 @@ import java.util.Arrays;
 @Table
 public class Usuario {
     @Id
-    @SequenceGenerator(
-            name="usuario_sequence",
-            sequenceName = "usuario_sequence",
-            allocationSize = 1
-    )
-
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "usuario_sequence"
-    )
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
     private String mail;
     private String nickName;
     private Boolean habilitado;
