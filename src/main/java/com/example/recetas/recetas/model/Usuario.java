@@ -2,6 +2,7 @@ package com.example.recetas.recetas.model;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Date;
 
 @Entity
 @Table
@@ -14,18 +15,20 @@ public class Usuario {
     private String nickName;
     private Boolean habilitado;
     private String nombre;
+    private String apellido;
+    private Date fechaNacimiento;
     private byte [] avatar;
     private String tipoUsuario;
+    private String password;
 
     public Usuario() {
     }
 
-    public Usuario(String mail, String nickName, Boolean habilitado, String nombre, byte[] avatar, String tipoUsuario) {
+    public Usuario(String mail, String nickName, Boolean habilitado, String nombre, String tipoUsuario) {
         this.mail = mail;
         this.nickName = nickName;
         this.habilitado = habilitado;
         this.nombre = nombre;
-        this.avatar = avatar;
         this.tipoUsuario = tipoUsuario;
     }
 
@@ -93,6 +96,14 @@ public class Usuario {
 
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

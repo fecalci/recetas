@@ -1,6 +1,7 @@
 package com.example.recetas.recetas.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -11,17 +12,17 @@ public class Receta {
 
     @ManyToOne
     @JoinColumn(name ="idUsuario")
-    private Usuario idUsuario;
+    private Long idUsuario;
 
     private String nombre;
     private String descripcion;
-    private byte [] foto;
+    private String foto;
     private int porciones;
     private int cantidadPersonas;
+    private List<Tipo> tag;
+    private List<Ingrediente> ingredientes;
+    private List<Preparacion> preparacion;
 
-    @ManyToOne
-    @JoinColumn(name="idTipo")
-    private Tipo idTipo;
 
     public Long getIdReceta() {
         return idReceta;
@@ -31,11 +32,11 @@ public class Receta {
         this.idReceta = idReceta;
     }
 
-    public Usuario getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -55,11 +56,11 @@ public class Receta {
         this.descripcion = descripcion;
     }
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 
@@ -79,22 +80,15 @@ public class Receta {
         this.cantidadPersonas = cantidadPersonas;
     }
 
-    public Tipo getIdTipo() {
-        return idTipo;
-    }
-
-    public void setIdTipo(Tipo idTipo) {
-        this.idTipo = idTipo;
-    }
-
-    public Receta(Long idReceta, Usuario idUsuario, String nombre, String descripcion, byte[] foto, int porciones, int cantidadPersonas, Tipo idTipo) {
-        this.idReceta = idReceta;
-        this.idUsuario = idUsuario;
+    public Receta(Long idUsuario,String nombre, String descripcion, String foto, int porciones, List<Tipo> tag,
+                  List<Ingrediente> ingredientes, List<Preparacion> preparacion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.foto = foto;
         this.porciones = porciones;
         this.cantidadPersonas = cantidadPersonas;
-        this.idTipo = idTipo;
+        this.tag = tag;
+        this.ingredientes = ingredientes;
+        this.preparacion = preparacion;
     }
 }
