@@ -27,12 +27,17 @@ public class UserController {
     }
 
     @PutMapping(value="resetPassword")
-    public String resetPassword(@RequestBody String mail){
-        return "Se envió un correo para cambiar su contraseña";
+    public String resetPassword(String password, String validationCode){
+        return "Su contraseña fue modificada con éxito!";
+    }
+
+    @GetMapping(value="getValidationCode")
+    public String getValidationCode(String mail){
+        return "Se envió un código al correo solicitado!";
     }
 
     @PostMapping(value="login")
-    public ResponseEntity login(@RequestBody String username, String password){
+    public ResponseEntity login(String username, String password){
         return ResponseEntity.ok("JWT-TOKEN");
     }
 

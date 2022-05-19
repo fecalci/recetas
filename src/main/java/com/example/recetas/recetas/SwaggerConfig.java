@@ -32,7 +32,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.example.recetas.recetas.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(getApiInfo())
+                .apiInfo(getApiInfo());
+                /*
                 .ignoredParameterTypes(FinalUserDto.class)
                 .ignoredParameterTypes(Ingrediente.class)
                 .ignoredParameterTypes(Preparacion.class)
@@ -41,6 +42,7 @@ public class SwaggerConfig {
                 .ignoredParameterTypes(ResponseEntity.class)
                 .ignoredParameterTypes(Tipo.class)
                 .ignoredParameterTypes(UsuarioDto.class);
+                 */
     }
 
     private ApiInfo getApiInfo() {

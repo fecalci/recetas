@@ -4,29 +4,19 @@ import java.util.Date;
 
 public class FinalUserDto {
 
-    private String mail;
-    private String nickName;
     private Boolean habilitado;
     private String nombre;
     private String apellido;
     private Date fechaNacimiento;
-    private byte [] avatar;
-    private String tipoUsuario;
+    private String avatar;
     private String password;
 
-    public String getMail() {
-        return mail;
-    }
-    public void setMail(String mail) {
-        this.mail = mail;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Boolean getHabilitado() {
@@ -59,22 +49,6 @@ public class FinalUserDto {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public byte[] getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 
     public String getPassword() {

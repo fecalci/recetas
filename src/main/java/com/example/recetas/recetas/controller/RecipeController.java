@@ -1,6 +1,7 @@
 package com.example.recetas.recetas.controller;
 
 import com.example.recetas.recetas.dto.RecetaDto;
+import com.example.recetas.recetas.dto.SavedRecipeDto;
 import com.example.recetas.recetas.model.Ingrediente;
 import com.example.recetas.recetas.model.Receta;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,11 @@ import java.util.List;
 @RestController(value="recipe")
 public class RecipeController {
 
+
+
     @GetMapping(value="recipe")
     public List<Receta> getRecipes(@RequestParam String name, @RequestParam String type,
-                                   @RequestParam List<Ingrediente> ingredients, @RequestParam String user,
+                                   @RequestParam List<String> ingredients, @RequestParam String user,
                                    @RequestParam List<String> notIngredients){
         List<Receta> recipes = new ArrayList<>();
         return recipes;
@@ -22,14 +25,14 @@ public class RecipeController {
     @PostMapping(value="recipe")
     public Receta submitRecipe(@RequestBody RecetaDto receta){
 
-        return new Receta(receta.getIdUser(),receta.getName(),
+        return new Receta(1L,1L,receta.getName(),
                 receta.getDescription(),receta.getImage(), receta.getPorciones(),
                 receta.getTag(), receta.getIngredients(), receta.getPreparation() );
     }
 
     @DeleteMapping(value="recipe")
     public Receta replaceRecipe(@RequestBody RecetaDto receta, String idReceta){
-        return new Receta(receta.getIdUser(),receta.getName(),
+        return new Receta(1L,receta.getIdUser(),receta.getName(),
                 receta.getDescription(),receta.getImage(), receta.getPorciones(),
                 receta.getTag(), receta.getIngredients(), receta.getPreparation() );
     }
@@ -37,7 +40,7 @@ public class RecipeController {
     @PutMapping(value="recipe")
     public Receta editRecipe(@RequestBody RecetaDto receta, String idReceta){
 
-        return new Receta(receta.getIdUser(),receta.getName(),
+        return new Receta(1L,receta.getIdUser(),receta.getName(),
                 receta.getDescription(),receta.getImage(), receta.getPorciones(),
                 receta.getTag(), receta.getIngredients(), receta.getPreparation() );
     }
@@ -53,8 +56,21 @@ public class RecipeController {
     }
 
     @PutMapping(value="/qualify/{id}")
-    public String qualifyRecipe(@PathVariable("id") Long recipeId, int value){
-        return("Receta de id "+ recipeId + "calificada con "+ value + " con éxtio");
+    public String qualifyRecipe(@PathVariable("id") Long recipeId, boolean like){
+        return("Ahora te gusta la receta con id " + recipeId);
+    }
+
+    @GetMapping(value="/myRecipesForLater")
+    public List<SavedRecipeDto> getRecipesForLater(){
+        SavedRecipeDto receta1 = new SavedRecipeDto
+                ("Camila93","Guacamole Mexicano","guacamole.url");
+        SavedRecipeDto receta2 = new SavedRecipeDto
+                ("Leonardo55","Carne al Horno","carne.url");
+        List <SavedRecipeDto> myList = new ArrayList<>();
+        myList.add(receta1);
+        myList.add(receta2);
+        return myList;
+
     }
 
 }

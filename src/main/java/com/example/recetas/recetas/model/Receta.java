@@ -23,6 +23,29 @@ public class Receta {
     private List<Ingrediente> ingredientes;
     private List<Preparacion> preparacion;
 
+    public List<Tipo> getTag() {
+        return tag;
+    }
+
+    public void setTag(List<Tipo> tag) {
+        this.tag = tag;
+    }
+
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public List<Preparacion> getPreparacion() {
+        return preparacion;
+    }
+
+    public void setPreparacion(List<Preparacion> preparacion) {
+        this.preparacion = preparacion;
+    }
 
     public Long getIdReceta() {
         return idReceta;
@@ -80,8 +103,9 @@ public class Receta {
         this.cantidadPersonas = cantidadPersonas;
     }
 
-    public Receta(Long idUsuario,String nombre, String descripcion, String foto, int porciones, List<Tipo> tag,
+    public Receta(Long idReceta,Long idUsuario,String nombre, String descripcion, String foto, int porciones, List<Tipo> tag,
                   List<Ingrediente> ingredientes, List<Preparacion> preparacion) {
+        this.idReceta=idReceta;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.foto = foto;
