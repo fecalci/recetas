@@ -9,41 +9,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@RestController(value="recipe")
+@RestController
 public class RecipeController {
 
-
-
-    @GetMapping(value="recipe")
+    @GetMapping(value = "recipe")
     public List<Receta> getRecipes(@RequestParam String name, @RequestParam String type,
                                    @RequestParam List<String> ingredients, @RequestParam String user,
-                                   @RequestParam List<String> notIngredients){
+                                   @RequestParam List<String> notIngredients) {
         List<Receta> recipes = new ArrayList<>();
         return recipes;
     }
 
+    /*
     @PostMapping(value="recipe")
     public Receta submitRecipe(@RequestBody RecetaDto receta){
 
-        return new Receta(1L,1L,receta.getName(),
-                receta.getDescription(),receta.getImage(), receta.getPorciones(),
-                receta.getTag(), receta.getIngredients(), receta.getPreparation() );
     }
 
+     */
+
+    /*
     @DeleteMapping(value="recipe")
     public Receta replaceRecipe(@RequestBody RecetaDto receta, String idReceta){
-        return new Receta(1L,receta.getIdUser(),receta.getName(),
-                receta.getDescription(),receta.getImage(), receta.getPorciones(),
-                receta.getTag(), receta.getIngredients(), receta.getPreparation() );
     }
+     */
 
+    /*
     @PutMapping(value="recipe")
     public Receta editRecipe(@RequestBody RecetaDto receta, String idReceta){
-
-        return new Receta(1L,receta.getIdUser(),receta.getName(),
-                receta.getDescription(),receta.getImage(), receta.getPorciones(),
-                receta.getTag(), receta.getIngredients(), receta.getPreparation() );
     }
+
+     */
 
     @PostMapping(value="/save/{id}")
     public String saveRecipeForLater(@PathVariable("id") Long recipeId){

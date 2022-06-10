@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Paso {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idPaso;

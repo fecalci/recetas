@@ -10,6 +10,7 @@ public class Multimedia {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idContenido;
 
+    @ManyToOne
     private Paso idPaso;
 
     private String tipo_contenido;

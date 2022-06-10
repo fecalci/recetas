@@ -12,34 +12,50 @@ public class Usuario {
     private Long id;
 
     private String mail;
-    private String nickName;
+    private String alias;
     private Boolean habilitado;
     private String nombre;
     private String apellido;
     private Date fechaNacimiento;
-    private byte [] avatar;
+    private String avatar;
     private String tipoUsuario;
     private String password;
 
     public Usuario() {
     }
 
-    public Usuario(String mail, String nickName, Boolean habilitado, String nombre, String tipoUsuario) {
+    public Usuario(String mail, String alias, Boolean habilitado, String nombre, String tipoUsuario) {
         this.mail = mail;
-        this.nickName = nickName;
+        this.alias = alias;
         this.habilitado = habilitado;
         this.nombre = nombre;
         this.tipoUsuario = tipoUsuario;
     }
 
-    public Usuario(Long id, String mail, String nickName, Boolean habilitado, String nombre, byte[] avatar, String tipoUsuario) {
+    public Usuario(Long id, String mail, String alias, Boolean habilitado, String nombre, String avatar, String tipoUsuario) {
         this.id = id;
         this.mail = mail;
-        this.nickName = nickName;
+        this.alias = alias;
         this.habilitado = habilitado;
         this.nombre = nombre;
         this.avatar = avatar;
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Long getId() {
@@ -58,12 +74,12 @@ public class Usuario {
         this.mail = mail;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public Boolean getHabilitado() {
@@ -82,11 +98,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -104,18 +120,5 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", mail='" + mail + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", habilitado=" + habilitado +
-                ", nombre='" + nombre + '\'' +
-                ", avatar=" + Arrays.toString(avatar) +
-                ", tipoUsuario='" + tipoUsuario + '\'' +
-                '}';
     }
 }

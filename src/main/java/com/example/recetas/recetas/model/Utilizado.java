@@ -10,25 +10,21 @@ public class Utilizado {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long idUtilizado;
 
+    @ManyToOne
+    @JoinColumn(name="idReceta")
     private Receta idReceta;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name="idIngrediente")
     private Ingrediente idIngrediente;
 
     private int cantidad;
 
+    @ManyToOne
+    @JoinColumn(name="idUnidad")
     private Unidad idUnidad;
 
     private String observaciones;
-
-    public long getIdUtilizado() {
-        return idUtilizado;
-    }
-
-    public void setIdUtilizado(long idUtilizado) {
-        this.idUtilizado = idUtilizado;
-    }
 
     public Receta getIdReceta() {
         return idReceta;

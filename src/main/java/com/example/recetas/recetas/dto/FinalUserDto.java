@@ -10,6 +10,15 @@ public class FinalUserDto {
     private Date fechaNacimiento;
     private String avatar;
     private String password;
+    private String alias;
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
     public String getAvatar() {
         return avatar;

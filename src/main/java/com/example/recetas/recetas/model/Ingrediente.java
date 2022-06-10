@@ -1,10 +1,18 @@
 package com.example.recetas.recetas.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Ingrediente {
 
+    @Id
+    @GeneratedValue
+    private Long idIngrediente;
     private String nombre;
-    private String medida;
-    private Long cantidad;
 
     public String getNombre() {
         return nombre;
@@ -14,19 +22,11 @@ public class Ingrediente {
         this.nombre = nombre;
     }
 
-    public String getMedida() {
-        return medida;
+    public Long getIdIngrediente() {
+        return idIngrediente;
     }
 
-    public void setMedida(String medida) {
-        this.medida = medida;
-    }
-
-    public Long getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Long cantidad) {
-        this.cantidad = cantidad;
+    public void setIdIngrediente(Long idIngrediente) {
+        this.idIngrediente = idIngrediente;
     }
 }

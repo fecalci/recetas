@@ -1,7 +1,6 @@
 package com.example.recetas.recetas.dto;
 
 import com.example.recetas.recetas.model.Ingrediente;
-import com.example.recetas.recetas.model.Preparacion;
 import com.example.recetas.recetas.model.Tipo;
 
 import java.util.List;
@@ -14,7 +13,6 @@ public class RecetaDto {
     private int porciones;
     private String description;
     private List<Ingrediente> ingredients;
-    private List<Preparacion> preparation;
     private List<Tipo> tag;
 
     public String getName() {
@@ -55,14 +53,6 @@ public class RecetaDto {
 
     public void setIngredients(List<Ingrediente> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public List<Preparacion> getPreparation() {
-        return preparation;
-    }
-
-    public void setPreparation(List<Preparacion> preparation) {
-        this.preparation = preparation;
     }
 
     public List<Tipo> getTag() {

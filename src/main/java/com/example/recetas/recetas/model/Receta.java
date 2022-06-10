@@ -12,40 +12,25 @@ public class Receta {
 
     @ManyToOne
     @JoinColumn(name ="idUsuario")
-    private Long idUsuario;
+    private Usuario idUsuario;
 
     private String nombre;
     private String descripcion;
     private String foto;
     private int porciones;
     private int cantidadPersonas;
-    private List<Tipo> tag;
-    private List<Ingrediente> ingredientes;
-    private List<Preparacion> preparacion;
 
-    public List<Tipo> getTag() {
+    @OneToOne
+    private Tipo tag;
+
+    public Tipo getTag() {
         return tag;
     }
 
-    public void setTag(List<Tipo> tag) {
+    public void setTag(Tipo tag) {
         this.tag = tag;
     }
 
-    public List<Ingrediente> getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(List<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
-    public List<Preparacion> getPreparacion() {
-        return preparacion;
-    }
-
-    public void setPreparacion(List<Preparacion> preparacion) {
-        this.preparacion = preparacion;
-    }
 
     public Long getIdReceta() {
         return idReceta;
@@ -55,11 +40,11 @@ public class Receta {
         this.idReceta = idReceta;
     }
 
-    public Long getIdUsuario() {
+    public Usuario getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -103,16 +88,4 @@ public class Receta {
         this.cantidadPersonas = cantidadPersonas;
     }
 
-    public Receta(Long idReceta,Long idUsuario,String nombre, String descripcion, String foto, int porciones, List<Tipo> tag,
-                  List<Ingrediente> ingredientes, List<Preparacion> preparacion) {
-        this.idReceta=idReceta;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.foto = foto;
-        this.porciones = porciones;
-        this.cantidadPersonas = cantidadPersonas;
-        this.tag = tag;
-        this.ingredientes = ingredientes;
-        this.preparacion = preparacion;
-    }
 }

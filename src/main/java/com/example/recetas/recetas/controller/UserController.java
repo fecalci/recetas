@@ -2,33 +2,31 @@ package com.example.recetas.recetas.controller;
 
 import com.example.recetas.recetas.dto.FinalUserDto;
 import com.example.recetas.recetas.dto.UsuarioDto;
-import com.example.recetas.recetas.exception.ApiError;
 import com.example.recetas.recetas.model.Usuario;
+import com.example.recetas.recetas.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @PostMapping(value="register")
-    public UsuarioDto register(@RequestBody UsuarioDto usuario){
-        Usuario user = new Usuario();
-        user.setMail(usuario.getMail());
-        user.setPassword(usuario.getPassword());
-        return usuario;
+    public ResponseEntity<Usuario> register(@RequestBody UsuarioDto usuario){
+        return ResponseEntity.ok().body(userService.firstRegister(usuario));
     }
 
     @PostMapping(value="register/endRegister")
-    public FinalUserDto endRegister(@RequestBody FinalUserDto usuario){
-        return usuario;
+    public ResponseEntity<Usuario> endRegister(@RequestBody FinalUserDto usuario){
+        return ResponseEntity.ok().body(userService.endRegister(usuario));
     }
 
     @PutMapping(value="resetPassword")
-    public String resetPassword(String password, String validationCode){
-        return "Su contraseña fue modificada con éxito!";
+    public ResponseEntity<Usuario> resetPassword(String password, String validationCode){
+        return ResponseEntity.ok().body(userService.resetPassword(password,validationCode));
     }
 
     @GetMapping(value="getValidationCode")
@@ -37,8 +35,11 @@ public class UserController {
     }
 
     @PostMapping(value="login")
-    public ResponseEntity login(String username, String password){
-        return ResponseEntity.ok("JWT-TOKEN");
+    public ResponseEntity<String> login(String username, String password){
+        Boolean validUser = userService.isValidUser(username,password);
+        if(validUser.equals(true))
+            return ResponseEntity.ok().body("Usuario logueado con éxito");
+        return ResponseEntity.badRequest().body("Credenciales incorrectas");
     }
 
 

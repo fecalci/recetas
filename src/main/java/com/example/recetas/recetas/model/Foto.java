@@ -10,6 +10,7 @@ public class Foto {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idFoto;
 
+    @ManyToOne
     private Receta idReceta;
 
     private String urlFoto;
