@@ -1,36 +1,28 @@
 package com.example.recetas.recetas.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table
+@Table()
 public class Receta {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idReceta;
 
-    @ManyToOne
-    @JoinColumn(name ="idUsuario")
-    private Usuario idUsuario;
-
+    @Column
+    private Long idUsuario;
+    @Column
     private String nombre;
+    @Column
     private String descripcion;
+    @Column
     private String foto;
+    @Column
     private int porciones;
+    @Column
     private int cantidadPersonas;
-
-    @OneToOne
-    private Tipo tag;
-
-    public Tipo getTag() {
-        return tag;
-    }
-
-    public void setTag(Tipo tag) {
-        this.tag = tag;
-    }
-
+    @Column
+    private Long tag;
 
     public Long getIdReceta() {
         return idReceta;
@@ -40,11 +32,11 @@ public class Receta {
         this.idReceta = idReceta;
     }
 
-    public Usuario getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -88,4 +80,11 @@ public class Receta {
         this.cantidadPersonas = cantidadPersonas;
     }
 
+    public Long getTag() {
+        return tag;
+    }
+
+    public void setTag(Long tag) {
+        this.tag = tag;
+    }
 }

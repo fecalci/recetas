@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(value="register")
+    @PostMapping(value ="/register")
     public ResponseEntity<Usuario> register(@RequestBody UsuarioDto usuario){
         return ResponseEntity.ok().body(userService.firstRegister(usuario));
     }
@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping(value="login")
-    public ResponseEntity<String> login(String username, String password){
-        Boolean validUser = userService.isValidUser(username,password);
+    public ResponseEntity<String> login(@RequestBody UsuarioDto user){
+        Boolean validUser = userService.isValidUser(user.getMail(),user.getPassword());
         if(validUser.equals(true))
             return ResponseEntity.ok().body("Usuario logueado con éxito");
         return ResponseEntity.badRequest().body("Credenciales incorrectas");

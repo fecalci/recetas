@@ -14,9 +14,7 @@ public class Utilizado {
     @JoinColumn(name="idReceta")
     private Receta idReceta;
 
-    @ManyToOne
-    @JoinColumn(name="idIngrediente")
-    private Ingrediente idIngrediente;
+    private Long idIngrediente;
 
     private int cantidad;
 
@@ -30,17 +28,18 @@ public class Utilizado {
         return idReceta;
     }
 
+    public long getIdUtilizado() {
+        return idUtilizado;
+    }
+
+    public void setIdUtilizado(long idUtilizado) {
+        this.idUtilizado = idUtilizado;
+    }
+
     public void setIdReceta(Receta idReceta) {
         this.idReceta = idReceta;
     }
 
-    public Ingrediente getIdIngrediente() {
-        return idIngrediente;
-    }
-
-    public void setIdIngrediente(Ingrediente idIngrediente) {
-        this.idIngrediente = idIngrediente;
-    }
 
     public int getCantidad() {
         return cantidad;
@@ -66,7 +65,15 @@ public class Utilizado {
         this.observaciones = observaciones;
     }
 
-    public Utilizado(long idUtilizado, Receta idReceta, Ingrediente idIngrediente, int cantidad, Unidad idUnidad, String observaciones) {
+    public Long getIdIngrediente() {
+        return idIngrediente;
+    }
+
+    public void setIdIngrediente(Long idIngrediente) {
+        this.idIngrediente = idIngrediente;
+    }
+
+    public Utilizado(long idUtilizado, Receta idReceta, Long idIngrediente, int cantidad, Unidad idUnidad, String observaciones) {
         this.idUtilizado = idUtilizado;
         this.idReceta = idReceta;
         this.idIngrediente = idIngrediente;

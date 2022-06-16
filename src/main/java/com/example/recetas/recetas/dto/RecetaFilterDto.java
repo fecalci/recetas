@@ -2,13 +2,16 @@ package com.example.recetas.recetas.dto;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 public class RecetaFilterDto {
 
     private String name;
     private String type;
-    private String Ingredient;
     private String user;
-    private String notIngredient;
+
+    private List<Long> Ingredient;
+    private List<Long> notIngredient;
 
     public String getName() {
         return name;
@@ -26,14 +29,6 @@ public class RecetaFilterDto {
         this.type = type;
     }
 
-    public String getIngredient() {
-        return Ingredient;
-    }
-
-    public void setIngredient(String ingredient) {
-        Ingredient = ingredient;
-    }
-
     public String getUser() {
         return user;
     }
@@ -42,11 +37,27 @@ public class RecetaFilterDto {
         this.user = user;
     }
 
-    public String getNotIngredient() {
+    public List<Long> getIngredient() {
+        return Ingredient;
+    }
+
+    public void setIngredient(List<Long> ingredient) {
+        Ingredient = ingredient;
+    }
+
+    public List<Long> getNotIngredient() {
         return notIngredient;
     }
 
-    public void setNotIngredient(String notIngredient) {
+    public void setNotIngredient(List<Long> notIngredient) {
+        this.notIngredient = notIngredient;
+    }
+
+    public RecetaFilterDto(String name, String type, String user, List<Long> ingredient, List<Long> notIngredient) {
+        this.name = name;
+        this.type = type;
+        this.user = user;
+        Ingredient = ingredient;
         this.notIngredient = notIngredient;
     }
 }
