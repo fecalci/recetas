@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
     public Usuario firstRegister(UsuarioDto userDto) {
         Usuario user = new Usuario();
         user.setMail(userDto.getMail());
-        user.setPassword(userDto.getPassword());
         user.setAlias(userDto.getAlias());
         return userRepository.save(user);
     }

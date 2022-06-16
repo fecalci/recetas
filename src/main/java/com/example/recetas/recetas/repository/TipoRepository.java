@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface TipoRepository extends JpaRepository<Tipo, Long> {
 
     //Optional<Tipo> findById(Long id);
+    Tipo findByDescripcion(String descripcion);
 
 }

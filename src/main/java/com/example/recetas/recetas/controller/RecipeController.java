@@ -1,5 +1,6 @@
 package com.example.recetas.recetas.controller;
 
+import com.example.recetas.recetas.dto.RecetaDto;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.SavedRecipeDto;
 import com.example.recetas.recetas.model.Receta;
@@ -18,7 +19,7 @@ public class RecipeController {
     RecetaService recetaService;
 
     @GetMapping(value = "recipe")
-    public ResponseEntity<List<Receta>> getRecipes(@RequestParam String name, @RequestParam String type,
+    public ResponseEntity<List<RecetaDto>> getRecipes(@RequestParam String name, @RequestParam String type,
                                                   @RequestParam List<Long> ingredients, @RequestParam String user,
                                                   @RequestParam List<Long> notIngredients) {
 
@@ -27,14 +28,10 @@ public class RecipeController {
         return ResponseEntity.ok().body(recetaService.getRecetasByFilter(filter));
     }
 
-
-    /*
     @PostMapping(value="recipe")
-    public Receta submitRecipe(@RequestBody RecetaDto receta){
-
+    public RecetaDto submitRecipe(@RequestBody RecetaDto receta){
+        return receta;
     }
-
-     */
 
     /*
     @DeleteMapping(value="recipe")

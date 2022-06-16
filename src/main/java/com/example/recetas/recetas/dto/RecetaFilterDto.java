@@ -10,8 +10,8 @@ public class RecetaFilterDto {
     private String type;
     private String user;
 
-    private List<Long> Ingredient;
-    private List<Long> notIngredient;
+    private List<String> Ingredient;
+    private List<String> notIngredient;
 
     public String getName() {
         return name;
@@ -37,27 +37,19 @@ public class RecetaFilterDto {
         this.user = user;
     }
 
-    public List<Long> getIngredient() {
+    public List<String> getIngredient() {
         return Ingredient;
     }
 
-    public void setIngredient(List<Long> ingredient) {
+    public void setIngredient(List<String> ingredient) {
         Ingredient = ingredient;
     }
 
-    public List<Long> getNotIngredient() {
+    public List<String> getNotIngredient() {
         return notIngredient;
     }
 
-    public void setNotIngredient(List<Long> notIngredient) {
-        this.notIngredient = notIngredient;
-    }
-
-    public RecetaFilterDto(String name, String type, String user, List<Long> ingredient, List<Long> notIngredient) {
-        this.name = name;
-        this.type = type;
-        this.user = user;
-        Ingredient = ingredient;
+    public void setNotIngredient(List<String> notIngredient) {
         this.notIngredient = notIngredient;
     }
 }
