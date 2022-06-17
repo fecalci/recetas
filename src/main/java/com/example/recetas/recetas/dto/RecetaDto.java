@@ -1,73 +1,55 @@
 package com.example.recetas.recetas.dto;
 
-import com.example.recetas.recetas.model.Ingrediente;
-import com.example.recetas.recetas.model.Tipo;
+import com.example.recetas.recetas.model.*;
 
 import java.util.List;
 
 public class RecetaDto {
 
-    private Long idUser;
-    private String name;
-    private String image;
-    private int porciones;
-    private String description;
-    private List<Ingrediente> ingredients;
-    private List<Tipo> tag;
+    private Receta receta;
 
-    public String getName() {
-        return name;
+    private String creatorNickname;
+
+    private List<String> ingredientes;
+
+    private List<Multimedia> multimedia;
+
+    private List<Paso> pasos;
+
+
+    public Receta getReceta() {
+        return receta;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setReceta(Receta receta) {
+        this.receta = receta;
     }
 
-    public String getImage() {
-        return image;
+    public String getCreatorNickname() {
+        return creatorNickname;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setCreatorNickname(String creatorNickname) {
+        this.creatorNickname = creatorNickname;
     }
 
-    public int getPorciones() {
-        return porciones;
+    public List<Multimedia> getMultimedia() {
+        return multimedia;
     }
 
-    public void setPorciones(int porciones) {
-        this.porciones = porciones;
+    public void setMultimedia(List<Multimedia> multimedia) {
+        this.multimedia = multimedia;
     }
 
-    public String getDescription() {
-        return description;
+    public void setIngredientes(List<String> ingredientes) {
+        this.ingredientes = ingredientes;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public List<Paso> getPasos() {
+        return pasos;
     }
 
-    public List<Ingrediente> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingrediente> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<Tipo> getTag() {
-        return tag;
-    }
-
-    public void setTag(List<Tipo> tag) {
-        this.tag = tag;
-    }
-
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setUser(Long idUser) {
-        this.idUser = idUser;
+    public void setPasos(List<Paso> pasos) {
+        this.pasos = pasos;
     }
 }
