@@ -100,7 +100,7 @@ public class RecetasServiceImpl implements RecetaService {
         RecetaDto dto = new RecetaDto();
         dto.setReceta(receta);
 
-        List<Utilizado> recetaUtilizado = utilizadoRepository.findByRecetaId(receta.getIdReceta());
+        List<Utilizado> recetaUtilizado = utilizadoRepository.findByIdReceta(receta.getIdReceta());
         //Traigo ingrediente para cada Utilizado
         for (Utilizado utilizado : recetaUtilizado) {
 
@@ -116,8 +116,8 @@ public class RecetasServiceImpl implements RecetaService {
             }
         }
 
-        List<Paso> pasos = pasoRepository.findByRecetaId(receta.getIdReceta());
-        dto.setPasos(pasoRepository.findByRecetaId(receta.getIdReceta()));
+        List<Paso> pasos = pasoRepository.findByIdReceta(receta.getIdReceta());
+        dto.setPasos(pasoRepository.findByIdReceta(receta.getIdReceta()));
         //Traigo listado de multimedas
         for (Paso paso : pasos) {
             List<Multimedia> multimedia = multimediaRepository.findByIdPaso(paso.getIdPaso());

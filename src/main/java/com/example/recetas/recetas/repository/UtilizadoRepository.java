@@ -20,6 +20,6 @@ public interface UtilizadoRepository extends JpaRepository<Utilizado,Long> {
                                       @Param("notIngredients") List<Long> notIngredients);
 
 
-    List<Utilizado> findByRecetaId(Long id);
+    List<Utilizado> findByIdReceta(Long id);
 
 }

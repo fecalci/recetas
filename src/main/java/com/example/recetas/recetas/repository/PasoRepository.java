@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface PasoRepository extends JpaRepository<Paso, Long> {
 
-    List<Paso> findByRecetaId(Long id);
+    List<Paso> findByIdReceta(Long id);
 }

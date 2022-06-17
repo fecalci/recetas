@@ -3,7 +3,6 @@ package com.example.recetas.recetas.controller;
 import com.example.recetas.recetas.dto.RecetaDto;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.SavedRecipeDto;
-import com.example.recetas.recetas.model.Receta;
 import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
