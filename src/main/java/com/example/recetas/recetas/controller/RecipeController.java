@@ -18,10 +18,11 @@ public class RecipeController {
     @Autowired
     RecetaService recetaService;
 
+
     @GetMapping(value = "recipe")
     public ResponseEntity<List<RecetaDto>> getRecipes(@RequestParam String name, @RequestParam String type,
-                                                  @RequestParam List<Long> ingredients, @RequestParam String user,
-                                                  @RequestParam List<Long> notIngredients) {
+                                                  @RequestParam List<String> ingredients, @RequestParam String user,
+                                                  @RequestParam List<String> notIngredients) {
 
         RecetaFilterDto filter = new RecetaFilterDto(name,type,user, ingredients, notIngredients);
 

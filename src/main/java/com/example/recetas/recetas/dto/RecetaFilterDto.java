@@ -52,4 +52,12 @@ public class RecetaFilterDto {
     public void setNotIngredient(List<String> notIngredient) {
         this.notIngredient = notIngredient;
     }
+
+    public RecetaFilterDto(String name, String type, String user, List<String> ingredient, List<String> notIngredient) {
+        this.name = name;
+        this.type = type;
+        this.user = user;
+        Ingredient = ingredient;
+        this.notIngredient = notIngredient;
+    }
 }
