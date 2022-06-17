@@ -8,4 +8,6 @@ import java.util.List;
 public interface RecetaService {
 
     List<RecetaDto> getRecetasByFilter(RecetaFilterDto filter);
+
+    RecetaDto submitReceta(RecetaDto recetaDto);
 }

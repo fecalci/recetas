@@ -4,6 +4,7 @@ import com.example.recetas.recetas.dto.RecetaDto;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.SavedRecipeDto;
 import com.example.recetas.recetas.service.RecetaService;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,11 @@ public class RecipeController {
 
 
     @GetMapping(value = "recipe")
-    public ResponseEntity<List<RecetaDto>> getRecipes(@RequestParam String name, @RequestParam String type,
-                                                  @RequestParam List<String> ingredients, @RequestParam String user,
-                                                  @RequestParam List<String> notIngredients) {
+    public ResponseEntity<List<RecetaDto>> getRecipes(@RequestParam(required = false) String name,
+                                                      @RequestParam(required = false) String type,
+                                                      @RequestParam(required = false) List<String> ingredients,
+                                                      @RequestParam(required = false) String user,
+                                                      @RequestParam(required = false) List<String> notIngredients) {
 
         RecetaFilterDto filter = new RecetaFilterDto(name,type,user, ingredients, notIngredients);
 
@@ -29,8 +32,8 @@ public class RecipeController {
     }
 
     @PostMapping(value="recipe")
-    public RecetaDto submitRecipe(@RequestBody RecetaDto receta){
-        return receta;
+    public ResponseEntity<RecetaDto> submitRecipe(@RequestBody RecetaDto receta){
+        return ResponseEntity.ok().body(recetaService.submitReceta(receta));
     }
 
     /*

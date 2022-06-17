@@ -1,7 +1,6 @@
 package com.example.recetas.recetas.dto;
 
 import com.example.recetas.recetas.model.*;
-
 import java.util.List;
 
 public class RecetaDto {
@@ -10,12 +9,21 @@ public class RecetaDto {
 
     private String creatorNickname;
 
-    private List<String> ingredientes;
+    private List<IngredienteDto> ingredienteConCantidad;
 
     private List<Multimedia> multimedia;
 
-    private List<Paso> pasos;
+    private List<PasoDto> pasos;
 
+    private String tagString;
+
+    public String getTagString() {
+        return tagString;
+    }
+
+    public void setTagString(String tagString) {
+        this.tagString = tagString;
+    }
 
     public Receta getReceta() {
         return receta;
@@ -41,15 +49,20 @@ public class RecetaDto {
         this.multimedia = multimedia;
     }
 
-    public void setIngredientes(List<String> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
-    public List<Paso> getPasos() {
+    public List<PasoDto> getPasos() {
         return pasos;
     }
 
-    public void setPasos(List<Paso> pasos) {
+    public void setPasos(List<PasoDto> pasos) {
         this.pasos = pasos;
+    }
+
+
+    public List<IngredienteDto> getIngredienteConCantidad() {
+        return ingredienteConCantidad;
+    }
+
+    public void setIngredienteConCantidad(List<IngredienteDto> ingredienteConCantidad) {
+        this.ingredienteConCantidad = ingredienteConCantidad;
     }
 }

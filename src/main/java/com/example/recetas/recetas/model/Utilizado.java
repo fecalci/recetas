@@ -10,9 +10,7 @@ public class Utilizado {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long idUtilizado;
 
-    @ManyToOne
-    @JoinColumn(name="idReceta")
-    private Receta idReceta;
+    private Long idReceta;
 
     private Long idIngrediente;
 
@@ -24,20 +22,12 @@ public class Utilizado {
 
     private String observaciones;
 
-    public Receta getIdReceta() {
-        return idReceta;
-    }
-
     public long getIdUtilizado() {
         return idUtilizado;
     }
 
     public void setIdUtilizado(long idUtilizado) {
         this.idUtilizado = idUtilizado;
-    }
-
-    public void setIdReceta(Receta idReceta) {
-        this.idReceta = idReceta;
     }
 
 
@@ -73,7 +63,18 @@ public class Utilizado {
         this.idIngrediente = idIngrediente;
     }
 
-    public Utilizado(long idUtilizado, Receta idReceta, Long idIngrediente, int cantidad, Unidad idUnidad, String observaciones) {
+    public Utilizado() {
+    }
+
+    public Long getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(Long idReceta) {
+        this.idReceta = idReceta;
+    }
+
+    public Utilizado(long idUtilizado, Long idReceta, Long idIngrediente, int cantidad, Unidad idUnidad, String observaciones) {
         this.idUtilizado = idUtilizado;
         this.idReceta = idReceta;
         this.idIngrediente = idIngrediente;

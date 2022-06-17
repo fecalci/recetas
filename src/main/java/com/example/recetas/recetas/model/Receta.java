@@ -3,10 +3,11 @@ package com.example.recetas.recetas.model;
 import javax.persistence.*;
 
 @Entity
-@Table()
+@Table(name="receta")
 public class Receta {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idReceta;
 
     @Column

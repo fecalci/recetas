@@ -10,8 +10,7 @@ public class Multimedia {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idContenido;
 
-    @ManyToOne
-    private Paso idPaso;
+    private Long idPaso;
 
     private String tipo_contenido;
 
@@ -27,13 +26,6 @@ public class Multimedia {
         this.idContenido = idContenido;
     }
 
-    public Paso getIdPaso() {
-        return idPaso;
-    }
-
-    public void setIdPaso(Paso idPaso) {
-        this.idPaso = idPaso;
-    }
 
     public String getTipo_contenido() {
         return tipo_contenido;
@@ -59,13 +51,14 @@ public class Multimedia {
         this.urlContenido = urlContenido;
     }
 
-    public Multimedia(Long idContenido, Paso idPaso, String tipo_contenido, String extension, String urlContenido) {
-        this.idContenido = idContenido;
-        this.idPaso = idPaso;
-        this.tipo_contenido = tipo_contenido;
-        this.extension = extension;
-        this.urlContenido = urlContenido;
+    public Long getIdPaso() {
+        return idPaso;
     }
 
+    public void setIdPaso(Long idPaso) {
+        this.idPaso = idPaso;
+    }
 
+    public Multimedia() {
+    }
 }

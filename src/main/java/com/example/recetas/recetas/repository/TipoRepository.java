@@ -12,4 +12,6 @@ public interface TipoRepository extends JpaRepository<Tipo, Long> {
     //Optional<Tipo> findById(Long id);
     Tipo findByDescripcion(String descripcion);
 
+    Optional<Tipo> findById(Long id);
+
 }

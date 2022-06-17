@@ -22,4 +22,6 @@ public interface UtilizadoRepository extends JpaRepository<Utilizado,Long> {
 
     List<Utilizado> findByIdReceta(Long id);
 
+    List<Utilizado> findByIdIngrediente(Long id);
+
 }

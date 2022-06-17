@@ -10,12 +10,14 @@ public class Paso {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long idPaso;
 
-    @ManyToOne
-    @JoinColumn(name ="idReceta")
-    private Receta idReceta;
+    private Long idReceta;
 
     private int nroPaso;
     private String texto;
+
+    public Paso() {
+
+    }
 
     public Long getIdPaso() {
         return idPaso;
@@ -23,14 +25,6 @@ public class Paso {
 
     public void setIdPaso(Long idPaso) {
         this.idPaso = idPaso;
-    }
-
-    public Receta getIdReceta() {
-        return idReceta;
-    }
-
-    public void setIdReceta(Receta idReceta) {
-        this.idReceta = idReceta;
     }
 
     public int getNroPaso() {
@@ -49,12 +43,18 @@ public class Paso {
         this.texto = texto;
     }
 
-    public Paso(Long idPaso, Receta idReceta, int nroPaso, String texto) {
+    public Long getIdReceta() {
+        return idReceta;
+    }
+
+    public void setIdReceta(Long idReceta) {
+        this.idReceta = idReceta;
+    }
+
+    public Paso(Long idPaso, Long idReceta, int nroPaso, String texto) {
         this.idPaso = idPaso;
         this.idReceta = idReceta;
         this.nroPaso = nroPaso;
         this.texto = texto;
     }
-
-
 }
