@@ -67,22 +67,22 @@ public class RecetasServiceImpl implements RecetaService {
         List<Receta> recetas  = recetaRepository.findRecetasByFilter(filter.getName() != null? filter.getName().toLowerCase() : null, filter.getUser() != null ?
                         userRepository.findByAlias(filter.getUser()).getId() : null,
                 filter.getType() != null ? tipoRepository.findByDescripcion(filter.getType()).getIdTipo() : null,
-                ingredientsId, notIngredientsId);
-
-/*
-        List<Receta> recetas = recetaRepository.findByNombreOrIdUsuarioOrTag
-                (filter.getName() != null? filter.getName().toLowerCase() : null, filter.getUser() != null ?
-                                userRepository.findByAlias(filter.getUser()).getId() : null,
-                        filter.getType() != null ?
-                                tipoRepository.findByDescripcion(filter.getType()).getIdTipo() : null);
-
- */
+                ingredientsId);
 
         //Valido si el filtro me devuelve información y hago dto response
         if (!recetas.isEmpty()) {
             for (Receta receta : recetas) {
-                RecetaDto dto = recetaToDto(receta, filter);
-                recetaDtos.add(dto);
+                boolean flag = true;
+                List<Utilizado> utilizados = utilizadoRepository.findByIdReceta(receta.getIdReceta());
+                for(Utilizado u : utilizados){
+                    if(notIngredientsId.contains(u.getIdIngrediente())){
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    RecetaDto dto = recetaToDto(receta, filter);
+                    recetaDtos.add(dto);
+                }
             }
         }
         else {
