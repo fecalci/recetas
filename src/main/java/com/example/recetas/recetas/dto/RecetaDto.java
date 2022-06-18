@@ -11,8 +11,6 @@ public class RecetaDto {
 
     private List<IngredienteDto> ingredienteConCantidad;
 
-    private List<Multimedia> multimedia;
-
     private List<PasoDto> pasos;
 
     private String tagString;
@@ -39,14 +37,6 @@ public class RecetaDto {
 
     public void setCreatorNickname(String creatorNickname) {
         this.creatorNickname = creatorNickname;
-    }
-
-    public List<Multimedia> getMultimedia() {
-        return multimedia;
-    }
-
-    public void setMultimedia(List<Multimedia> multimedia) {
-        this.multimedia = multimedia;
     }
 
     public List<PasoDto> getPasos() {

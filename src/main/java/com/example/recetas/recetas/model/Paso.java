@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Paso {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idPaso;
 
     private Long idReceta;

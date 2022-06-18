@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Multimedia {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idContenido;
 
     private Long idPaso;

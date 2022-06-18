@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Utilizado {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long idUtilizado;
 
     private Long idReceta;

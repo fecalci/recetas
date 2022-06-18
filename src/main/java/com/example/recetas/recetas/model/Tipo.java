@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Tipo {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idTipo;
 
     private String descripcion;
