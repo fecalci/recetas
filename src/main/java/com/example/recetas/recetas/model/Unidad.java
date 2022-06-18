@@ -13,7 +13,7 @@ public class Unidad {
     @GeneratedValue
     private Long idUnidad;
 
-    private String descrpicion;
+    private String descripcion;
 
     public Long getIdUnidad() {
         return idUnidad;
@@ -23,11 +23,11 @@ public class Unidad {
         this.idUnidad = idUnidad;
     }
 
-    public String getDescrpicion() {
-        return descrpicion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescrpicion(String descrpicion) {
-        this.descrpicion = descrpicion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

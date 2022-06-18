@@ -16,9 +16,7 @@ public class Utilizado {
 
     private int cantidad;
 
-    @ManyToOne
-    @JoinColumn(name="idUnidad")
-    private Unidad idUnidad;
+    private Long idUnidad;
 
     private String observaciones;
 
@@ -39,13 +37,6 @@ public class Utilizado {
         this.cantidad = cantidad;
     }
 
-    public Unidad getIdUnidad() {
-        return idUnidad;
-    }
-
-    public void setIdUnidad(Unidad idUnidad) {
-        this.idUnidad = idUnidad;
-    }
 
     public String getObservaciones() {
         return observaciones;
@@ -74,7 +65,15 @@ public class Utilizado {
         this.idReceta = idReceta;
     }
 
-    public Utilizado(long idUtilizado, Long idReceta, Long idIngrediente, int cantidad, Unidad idUnidad, String observaciones) {
+    public Long getIdUnidad() {
+        return idUnidad;
+    }
+
+    public void setIdUnidad(Long idUnidad) {
+        this.idUnidad = idUnidad;
+    }
+
+    public Utilizado(long idUtilizado, Long idReceta, Long idIngrediente, int cantidad, Long idUnidad, String observaciones) {
         this.idUtilizado = idUtilizado;
         this.idReceta = idReceta;
         this.idIngrediente = idIngrediente;

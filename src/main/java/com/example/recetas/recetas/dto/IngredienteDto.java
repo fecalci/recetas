@@ -2,17 +2,9 @@ package com.example.recetas.recetas.dto;
 
 public class IngredienteDto {
 
-    private Long idIngrediente;
+    private String nombre;
     private String medida;
     private int cantidad;
-
-    public Long getIdIngrediente() {
-        return idIngrediente;
-    }
-
-    public void setIdIngrediente(Long idIngrediente) {
-        this.idIngrediente = idIngrediente;
-    }
 
     public String getMedida() {
         return medida;
@@ -28,5 +20,13 @@ public class IngredienteDto {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

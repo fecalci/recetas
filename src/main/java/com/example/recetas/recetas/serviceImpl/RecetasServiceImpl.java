@@ -40,6 +40,9 @@ public class RecetasServiceImpl implements RecetaService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UnidadRepository unidadRepository;
+
 
     @Override
     public List<RecetaDto> getRecetasByFilter(RecetaFilterDto filter) {
@@ -98,14 +101,6 @@ public class RecetasServiceImpl implements RecetaService {
 
     @Override
     public RecetaDto submitReceta(RecetaDto recetaDto) {
-        //Guardo los ingredientes con sus respectivas cantidades en utilizado
-        for(IngredienteDto ingredienteDto : recetaDto.getIngredienteConCantidad()){
-            Utilizado utilizado = new Utilizado();
-            utilizado.setIdReceta(recetaDto.getReceta().getIdReceta());
-            utilizado.setIdIngrediente(ingredienteDto.getIdIngrediente());
-            utilizado.setCantidad(ingredienteDto.getCantidad());
-            utilizadoRepository.save(utilizado);
-        }
 
         Receta receta = new Receta();
         receta.setDescripcion(recetaDto.getReceta().getDescripcion());
@@ -116,6 +111,16 @@ public class RecetasServiceImpl implements RecetaService {
         receta.setPorciones(recetaDto.getReceta().getPorciones());
         receta.setTag(recetaDto.getReceta().getTag());
         recetaRepository.save(recetaDto.getReceta());
+
+        //Guardo los ingredientes con sus respectivas cantidades en utilizado
+        for(IngredienteDto ingredienteDto : recetaDto.getIngredienteConCantidad()){
+            Utilizado utilizado = new Utilizado();
+            utilizado.setIdReceta(recetaDto.getReceta().getIdReceta());
+            utilizado.setIdIngrediente(ingredienteRepository.findByNombre(ingredienteDto.getNombre()).getIdIngrediente());
+            utilizado.setCantidad(ingredienteDto.getCantidad());
+            utilizado.setIdUnidad(unidadRepository.findByDescripcion(ingredienteDto.getMedida()).getIdUnidad());
+            utilizadoRepository.save(utilizado);
+        }
 
         for(PasoDto paso : recetaDto.getPasos()){
             Paso newPaso = new Paso();
@@ -181,15 +186,15 @@ public class RecetasServiceImpl implements RecetaService {
         if (filter.getNotIngredient() != null && !filter.getNotIngredient().contains(ing)) {
             if(filter.getIngredient() != null && filter.getIngredient().contains(ing)){
                 ing.ifPresent(i -> {
-                    ingDto.setIdIngrediente(i.getIdIngrediente());
-                    ingDto.setMedida(utilizado.getIdUnidad().getDescrpicion());
+                    ingDto.setNombre(i.getNombre());
+                    ingDto.setMedida(unidadRepository.findById(utilizado.getIdUnidad()).get().getDescripcion());
                     ingDto.setCantidad(utilizado.getCantidad());
                 });
             }
             else if(filter.getIngredient() == null){
                 ing.ifPresent(i -> {
-                    ingDto.setIdIngrediente(i.getIdIngrediente());
-                    ingDto.setMedida(utilizado.getIdUnidad().getDescrpicion());
+                    ingDto.setNombre(i.getNombre());
+                    ingDto.setMedida(unidadRepository.findById(utilizado.getIdUnidad()).get().getDescripcion());
                     ingDto.setCantidad(utilizado.getCantidad());
                 });
             }
