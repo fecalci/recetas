@@ -2,13 +2,13 @@ package com.example.recetas.recetas.controller;
 
 import com.example.recetas.recetas.dto.RecetaDto;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
-import com.example.recetas.recetas.dto.SavedRecipeDto;
+import com.example.recetas.recetas.model.Receta;
+import com.example.recetas.recetas.model.RecetaPorUsuario;
 import com.example.recetas.recetas.service.RecetaService;
-import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -64,17 +64,15 @@ public class RecipeController {
         return("Ahora te gusta la receta con id " + recipeId);
     }
 
-    @GetMapping(value="/myRecipesForLater")
-    public List<SavedRecipeDto> getRecipesForLater(){
-        SavedRecipeDto receta1 = new SavedRecipeDto
-                ("Camila93","Guacamole Mexicano","guacamole.url");
-        SavedRecipeDto receta2 = new SavedRecipeDto
-                ("Leonardo55","Carne al Horno","carne.url");
-        List <SavedRecipeDto> myList = new ArrayList<>();
-        myList.add(receta1);
-        myList.add(receta2);
-        return myList;
+    @PostMapping(value="/recipeForLater/{id}/{nickname}")
+    public ResponseEntity<RecetaPorUsuario> getRecipesForLater(@PathVariable("id") Long recipeId,
+                                                               @PathVariable("nickname") String nickname){
+        return ResponseEntity.ok().body(recetaService.submitRecetaForLater(recipeId, nickname));
+    }
 
+    @GetMapping(value="/recipeForLater/{nickname}")
+    public ResponseEntity<List<Receta>> getRecipesForLaterByUser(@PathVariable("nickname") String nickname){
+        return ResponseEntity.ok().body(recetaService.getRecetasForLater(nickname));
     }
 
 }

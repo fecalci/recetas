@@ -7,7 +7,6 @@ import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.model.*;
 import com.example.recetas.recetas.repository.*;
 import com.example.recetas.recetas.service.RecetaService;
-import jdk.jshell.execution.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +42,9 @@ public class RecetasServiceImpl implements RecetaService {
 
     @Autowired
     private UnidadRepository unidadRepository;
+
+    @Autowired
+    private RecetaPorUsuarioRepository recetaPorUsuarioRepository;
 
 
     @Override
@@ -161,7 +163,30 @@ public class RecetasServiceImpl implements RecetaService {
         return recetaDto;
     }
 
+    @Override
+    public RecetaPorUsuario submitRecetaForLater(Long id, String alias) {
+        Optional<Receta> receta = recetaRepository.findById(id);
+        Usuario usuario = userRepository.findByAlias(alias);
+        RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
+        recetaPorUsuario.setIdReceta(receta.get().getIdReceta());
+        recetaPorUsuario.setNickUsuario(alias);
+        recetaPorUsuario.setIdUsuario(usuario.getId());
 
+        return recetaPorUsuarioRepository.save(recetaPorUsuario);
+    }
+
+    @Override
+    public List<Receta> getRecetasForLater(String alias) {
+        List<Receta> recetas = new ArrayList<>();
+        List<RecetaPorUsuario> recetasPorUsuario = recetaPorUsuarioRepository.findByNickUsuario(alias);
+
+        for(RecetaPorUsuario rpu : recetasPorUsuario){
+            Optional<Receta> receta = recetaRepository.findById(rpu.getIdUsuario());
+            recetas.add(receta.get());
+        }
+
+        return recetas;
+    }
 
 
     private RecetaDto utilizadoToRecetaDto(Utilizado utilizado) {
