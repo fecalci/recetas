@@ -15,6 +15,8 @@ public class RecetaDto {
 
     private String tagString;
 
+    private int calificacion;
+
     public String getTagString() {
         return tagString;
     }
@@ -47,6 +49,13 @@ public class RecetaDto {
         this.pasos = pasos;
     }
 
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
+    }
 
     public List<IngredienteDto> getIngredienteConCantidad() {
         return ingredienteConCantidad;

@@ -5,36 +5,22 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Calificacion {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idCalificacion;
 
-    @ManyToOne
-    @JoinColumn(name ="idUsuario")
-    private Usuario idUsuario;
+    @Column
+    private Long idUsuario;
 
-    @ManyToOne
-    @JoinColumn(name ="idReceta")
-    private Receta idReceta;
+    @Column
+    private Long idReceta;
 
+    @Column
     private int calificacion;
+
+    @Column
     private String comentarios;
-
-    public Calificacion() {
-    }
-
-    public Calificacion(Long idCalificacion, Usuario idUsuario, Receta idReceta, int calificacion, String comentarios) {
-        this.idCalificacion = idCalificacion;
-        this.idUsuario = idUsuario;
-        this.idReceta = idReceta;
-        this.calificacion = calificacion;
-        this.comentarios = comentarios;
-    }
-
-    public Calificacion(int calificacion, String comentarios) {
-        this.calificacion = calificacion;
-        this.comentarios = comentarios;
-    }
 
     public Long getIdCalificacion() {
         return idCalificacion;
@@ -44,19 +30,19 @@ public class Calificacion {
         this.idCalificacion = idCalificacion;
     }
 
-    public Usuario getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Receta getIdReceta() {
+    public Long getIdReceta() {
         return idReceta;
     }
 
-    public void setIdReceta(Receta idReceta) {
+    public void setIdReceta(Long idReceta) {
         this.idReceta = idReceta;
     }
 
@@ -74,6 +60,17 @@ public class Calificacion {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public Calificacion(Long idCalificacion, Long idUsuario, Long idReceta, int calificacion, String comentarios) {
+        this.idCalificacion = idCalificacion;
+        this.idUsuario = idUsuario;
+        this.idReceta = idReceta;
+        this.calificacion = calificacion;
+        this.comentarios = comentarios;
+    }
+
+    public Calificacion() {
     }
 
     @Override

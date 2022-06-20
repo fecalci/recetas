@@ -6,6 +6,7 @@ import com.example.recetas.recetas.dto.RecetaDto;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.model.*;
 import com.example.recetas.recetas.repository.*;
+import com.example.recetas.recetas.service.CalificacionService;
 import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,10 +47,12 @@ public class RecetasServiceImpl implements RecetaService {
     @Autowired
     private RecetaPorUsuarioRepository recetaPorUsuarioRepository;
 
+    @Autowired
+    private CalificacionService calificacionService;
+
 
     @Override
     public List<RecetaDto> getRecetasByFilter(RecetaFilterDto filter) {
-
         List<RecetaDto> recetaDtos = new ArrayList<>();
         List<Long> ingredientsId = new ArrayList<>();
         List<Long> notIngredientsId = new ArrayList<>();
@@ -59,7 +62,6 @@ public class RecetasServiceImpl implements RecetaService {
                 ingredientsId.add(ingredienteRepository.findByNombre(nombre).getIdIngrediente());
             }
         }
-
         if(filter.getNotIngredient() != null){
             for(String nombre : filter.getNotIngredient()){
                 notIngredientsId.add(ingredienteRepository.findByNombre(nombre).getIdIngrediente());
@@ -86,38 +88,6 @@ public class RecetasServiceImpl implements RecetaService {
                     recetaDtos.add(dto);
                 }
             }
-        }
-        else {
-            List<Long> notIngredientsIds = new ArrayList<>();
-            List<Long> ingredientsIds = new ArrayList<>();
-
-            //Busco los id de los ingredientes filtrados
-            if (filter.getIngredient() != null) {
-                for (String nombre : filter.getIngredient()) {
-                    ingredientsIds.add(ingredienteRepository.findByNombre(nombre).getIdIngrediente());
-                }
-            }
-            //Busco los id de los not ingredientes filtrados
-            if (filter.getNotIngredient() != null) {
-                for (String nombre : filter.getNotIngredient()) {
-                    notIngredientsIds.add(ingredienteRepository.findByNombre(nombre).getIdIngrediente());
-                }
-            }
-
-            //Aplico filtro en base a los ids de filtros de ingredientes
-            List<Utilizado> utilizados = utilizadoRepository.findByIngredients
-                    (ingredientsIds, notIngredientsIds);
-
-            //Valido si el filtro me devuelve información y hago dto repsonse
-            if (!utilizados.isEmpty()) {
-                for (Utilizado utilizado : utilizados) {
-                    RecetaDto dto = utilizadoToRecetaDto(utilizado);
-                    recetaDtos.add(dto);
-                }
-            }
-
-            return recetaDtos;
-
         }
 
         return recetaDtos;
@@ -222,6 +192,10 @@ public class RecetasServiceImpl implements RecetaService {
             pasosList.add(pasoDto);
         }
         dto.setPasos(pasosList);
+
+        List<Calificacion> calificaciones = calificacionService.findByIdReceta(receta.getIdReceta());
+        dto.setCalificacion(calificacionService.getAverageValueByReceta(calificaciones));
+
         return dto;
     }
 
