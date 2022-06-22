@@ -53,6 +53,7 @@ public class RecetasServiceImpl implements RecetaService {
         List<RecetaDto> recetaDtos = new ArrayList<>();
         List<Long> ingredientsId = new ArrayList<>();
         List<Long> notIngredientsId = new ArrayList<>();
+        List<Receta> recetas = new ArrayList<>();
         //Aplico filtros de nombre, id usuario o tag
         if(filter.getIngredient() != null){
             for(String nombre : filter.getIngredient()){
@@ -65,10 +66,16 @@ public class RecetasServiceImpl implements RecetaService {
             }
         }
 
-        List<Receta> recetas  = recetaRepository.findRecetasByFilter(filter.getName() != null? filter.getName().toLowerCase() : null,
-                filter.getUser() != null ? userRepository.findByAlias(filter.getUser()).getId() : null,
-                filter.getType() != null ? tipoRepository.findByDescripcion(filter.getType()).getIdTipo() : null,
-                !ingredientsId.isEmpty() ? ingredientsId : null);
+        if(ingredientsId.isEmpty()){
+            recetas  = recetaRepository.findRecetasByFilter(filter.getName() != null? filter.getName().toLowerCase() : null,
+                    filter.getUser() != null ? userRepository.findByAlias(filter.getUser()).getId() : null,
+                    filter.getType() != null ? tipoRepository.findByDescripcion(filter.getType()).getIdTipo() : null);
+        }
+        else{
+            recetas  = recetaRepository.findRecetasByFilterAndIngredients(filter.getName() != null? filter.getName().toLowerCase() : null,
+                    filter.getUser() != null ? userRepository.findByAlias(filter.getUser()).getId() : null,
+                    filter.getType() != null ? tipoRepository.findByDescripcion(filter.getType()).getIdTipo() : null, ingredientsId);
+        }
 
         //Valido si el filtro me devuelve información y hago dto response
         if (!recetas.isEmpty()) {
