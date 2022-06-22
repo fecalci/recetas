@@ -3,10 +3,13 @@ package com.example.recetas.recetas.controller;
 import com.example.recetas.recetas.dto.FinalUserDto;
 import com.example.recetas.recetas.dto.UsuarioDto;
 import com.example.recetas.recetas.model.Usuario;
+import com.example.recetas.recetas.repository.UserRepository;
 import com.example.recetas.recetas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class UserController {
@@ -14,9 +17,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping(value ="/register")
-    public ResponseEntity<Usuario> register(@RequestBody UsuarioDto usuario){
-        return ResponseEntity.ok().body(userService.firstRegister(usuario));
+    public ResponseEntity<Usuario> register(@RequestBody UsuarioDto usuario) throws Exception {
+        if(userRepository.findByAlias(usuario.getAlias()) != null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "alias");
+        }
+        else if(userRepository.findByMail(usuario.getMail()) != null){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "mail");
+        }
+        else{
+            return ResponseEntity.ok().body(userService.firstRegister(usuario));
+        }
     }
 
     @PostMapping(value="register/endRegister")

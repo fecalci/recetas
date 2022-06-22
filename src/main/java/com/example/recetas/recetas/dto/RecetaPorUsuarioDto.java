@@ -4,10 +4,19 @@ import com.example.recetas.recetas.model.Receta;
 
 public class RecetaPorUsuarioDto {
 
+    private Long idRecetaPorUsuario;
+
     private String nickName;
 
     private Receta receta;
 
+    public Long getIdRecetaPorUsuario() {
+        return idRecetaPorUsuario;
+    }
+
+    public void setIdRecetaPorUsuario(Long idRecetaPorUsuario) {
+        this.idRecetaPorUsuario = idRecetaPorUsuario;
+    }
 
     public Receta getReceta() {
         return receta;

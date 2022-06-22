@@ -151,11 +151,18 @@ public class RecetasServiceImpl implements RecetaService {
             Optional<Receta> receta = recetaRepository.findById(rpu.getIdReceta());
             RecetaPorUsuarioDto dto = new RecetaPorUsuarioDto();
             dto.setReceta(receta.get());
-            dto.setNickName(rpu.getNickUsuario());
+            dto.setNickName(userRepository.findById(receta.get().getIdUsuario()).get().getAlias());
+            dto.setIdRecetaPorUsuario(rpu.getId());
             response.add(dto);
         }
 
         return response;
+    }
+
+    @Override
+    public String deleteRecetasForLater(Long id) {
+        recetaPorUsuarioRepository.deleteById(id);
+        return "La receta se eliminó con éxito";
     }
 
 
