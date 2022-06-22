@@ -151,7 +151,7 @@ public class RecetasServiceImpl implements RecetaService {
         List<RecetaPorUsuario> recetasPorUsuario = recetaPorUsuarioRepository.findByNickUsuario(alias);
 
         for(RecetaPorUsuario rpu : recetasPorUsuario){
-            Optional<Receta> receta = recetaRepository.findById(rpu.getIdUsuario());
+            Optional<Receta> receta = recetaRepository.findById(rpu.getIdReceta());
             recetas.add(receta.get());
         }
 
