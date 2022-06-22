@@ -1,9 +1,6 @@
 package com.example.recetas.recetas.serviceImpl;
 
-import com.example.recetas.recetas.dto.IngredienteDto;
-import com.example.recetas.recetas.dto.PasoDto;
-import com.example.recetas.recetas.dto.RecetaDto;
-import com.example.recetas.recetas.dto.RecetaFilterDto;
+import com.example.recetas.recetas.dto.*;
 import com.example.recetas.recetas.model.*;
 import com.example.recetas.recetas.repository.*;
 import com.example.recetas.recetas.service.CalificacionService;
@@ -146,16 +143,19 @@ public class RecetasServiceImpl implements RecetaService {
     }
 
     @Override
-    public List<Receta> getRecetasForLater(String alias) {
-        List<Receta> recetas = new ArrayList<>();
+    public List<RecetaPorUsuarioDto> getRecetasForLater(String alias) {
+        List<RecetaPorUsuarioDto> response = new ArrayList<>();
         List<RecetaPorUsuario> recetasPorUsuario = recetaPorUsuarioRepository.findByNickUsuario(alias);
 
         for(RecetaPorUsuario rpu : recetasPorUsuario){
             Optional<Receta> receta = recetaRepository.findById(rpu.getIdReceta());
-            recetas.add(receta.get());
+            RecetaPorUsuarioDto dto = new RecetaPorUsuarioDto();
+            dto.setReceta(receta.get());
+            dto.setNickName(rpu.getNickUsuario());
+            response.add(dto);
         }
 
-        return recetas;
+        return response;
     }
 
 

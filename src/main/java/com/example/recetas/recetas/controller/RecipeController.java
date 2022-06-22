@@ -2,6 +2,7 @@ package com.example.recetas.recetas.controller;
 
 import com.example.recetas.recetas.dto.RecetaDto;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
+import com.example.recetas.recetas.dto.RecetaPorUsuarioDto;
 import com.example.recetas.recetas.model.Receta;
 import com.example.recetas.recetas.model.RecetaPorUsuario;
 import com.example.recetas.recetas.service.RecetaService;
@@ -71,7 +72,7 @@ public class RecipeController {
     }
 
     @GetMapping(value="/recipeForLater/{nickname}")
-    public ResponseEntity<List<Receta>> getRecipesForLaterByUser(@PathVariable("nickname") String nickname){
+    public ResponseEntity<List<RecetaPorUsuarioDto>> getRecipesForLaterByUser(@PathVariable("nickname") String nickname){
         return ResponseEntity.ok().body(recetaService.getRecetasForLater(nickname));
     }
 
