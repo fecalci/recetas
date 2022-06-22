@@ -25,8 +25,6 @@ public interface RecetaRepository extends JpaRepository<Receta, Long> {
                                      @Param("tag") Long tag,
                                      @Param("ingredients") List<Long> ingredients);
 
-
-
     Optional<Receta> findById(Long id);
 
 

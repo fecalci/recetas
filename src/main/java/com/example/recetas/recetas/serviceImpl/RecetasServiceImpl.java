@@ -65,10 +65,10 @@ public class RecetasServiceImpl implements RecetaService {
             }
         }
 
-        List<Receta> recetas  = recetaRepository.findRecetasByFilter(filter.getName() != null? filter.getName().toLowerCase() : null, filter.getUser() != null ?
-                        userRepository.findByAlias(filter.getUser()).getId() : null,
+        List<Receta> recetas  = recetaRepository.findRecetasByFilter(filter.getName() != null? filter.getName().toLowerCase() : null,
+                filter.getUser() != null ? userRepository.findByAlias(filter.getUser()).getId() : null,
                 filter.getType() != null ? tipoRepository.findByDescripcion(filter.getType()).getIdTipo() : null,
-                ingredientsId);
+                !ingredientsId.isEmpty() ? ingredientsId : null);
 
         //Valido si el filtro me devuelve información y hago dto response
         if (!recetas.isEmpty()) {
