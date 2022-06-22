@@ -13,5 +13,5 @@ public interface UserService {
 
     Usuario resetPassword(String password, String validationCode);
 
-    Boolean isValidUser(String email, String password);
+    Usuario isValidUser(String email, String password);
 }

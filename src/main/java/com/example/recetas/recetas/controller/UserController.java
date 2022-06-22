@@ -49,11 +49,12 @@ public class UserController {
     }
 
     @PostMapping(value="login")
-    public ResponseEntity<String> login(@RequestBody UsuarioDto user){
-        Boolean validUser = userService.isValidUser(user.getMail(),user.getPassword());
-        if(validUser.equals(true))
-            return ResponseEntity.ok().body("Usuario logueado con éxito");
-        return ResponseEntity.badRequest().body("Credenciales incorrectas");
+    public ResponseEntity<Usuario> login(@RequestBody UsuarioDto user){
+        Usuario validUser = userService.isValidUser(user.getMail(),user.getPassword());
+        if(validUser != null){
+            return ResponseEntity.ok().body(validUser);
+        }
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Credenciales erroneas");
     }
 
 

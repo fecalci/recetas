@@ -6,9 +6,7 @@ import com.example.recetas.recetas.model.Usuario;
 import com.example.recetas.recetas.repository.UserRepository;
 import com.example.recetas.recetas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
@@ -40,11 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean isValidUser(String email, String password) {
+    public Usuario isValidUser(String email, String password) {
         Usuario user = userRepository.findByMailAndPassword(email, password);
         if (user != null)
-            return true;
-        return false;
+            return user;
+        return null;
     }
 
     public Usuario mapDtoToUser(Usuario user,FinalUserDto finalUserDto){
