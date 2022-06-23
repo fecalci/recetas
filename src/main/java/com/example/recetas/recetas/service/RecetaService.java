@@ -1,6 +1,7 @@
 package com.example.recetas.recetas.service;
 
 import com.example.recetas.recetas.dto.RecetaDto;
+import com.example.recetas.recetas.dto.RecetaDtoSinMulti;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.RecetaPorUsuarioDto;
 import com.example.recetas.recetas.model.RecetaPorUsuario;
@@ -11,7 +12,7 @@ public interface RecetaService {
 
     List<RecetaDto> getRecetasByFilter(RecetaFilterDto filter);
 
-    RecetaDto submitReceta(RecetaDto recetaDto);
+    RecetaDtoSinMulti submitReceta(RecetaDtoSinMulti recetaDto);
 
     RecetaPorUsuario submitRecetaForLater(Long id, String alias);
 

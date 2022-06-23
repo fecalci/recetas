@@ -1,6 +1,7 @@
 package com.example.recetas.recetas.controller;
 
 import com.example.recetas.recetas.dto.RecetaDto;
+import com.example.recetas.recetas.dto.RecetaDtoSinMulti;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.RecetaPorUsuarioDto;
 import com.example.recetas.recetas.model.RecetaPorUsuario;
@@ -32,7 +33,7 @@ public class RecipeController {
     }
 
     @PostMapping(value="recipe")
-    public ResponseEntity<RecetaDto> submitRecipe(@RequestBody RecetaDto receta){
+    public ResponseEntity<RecetaDtoSinMulti> submitRecipe(@RequestBody RecetaDtoSinMulti receta){
         return ResponseEntity.ok().body(recetaService.submitReceta(receta));
     }
 

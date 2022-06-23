@@ -98,7 +98,7 @@ public class RecetasServiceImpl implements RecetaService {
     }
 
     @Override
-    public RecetaDto submitReceta(RecetaDto recetaDto) {
+    public RecetaDtoSinMulti submitReceta(RecetaDtoSinMulti recetaDto) {
 
         Receta receta = new Receta();
         receta.setDescripcion(recetaDto.getReceta().getDescripcion());
@@ -120,19 +120,20 @@ public class RecetasServiceImpl implements RecetaService {
             utilizadoRepository.save(utilizado);
         }
 
-        for(PasoDto paso : recetaDto.getPasos()){
+        for(PasoDtoSinMulti paso : recetaDto.getPasos()){
             Paso newPaso = new Paso();
             newPaso.setNroPaso(toIntExact(paso.getIdPaso()));
             newPaso.setIdReceta(recetaDto.getReceta().getIdReceta());
             newPaso.setTexto(paso.getDescripcion());
             pasoRepository.save(newPaso);
-
+/*
             for(int i = 0; i<paso.getMultimedia().size(); i++){
                 Multimedia multimedia = new Multimedia();
                 multimedia.setUrlContenido(paso.getMultimedia().get(i));
                 multimedia.setIdPaso(paso.getIdPaso());
                 multimediaRepository.save(multimedia);
             }
+ */
         }
         return recetaDto;
     }
