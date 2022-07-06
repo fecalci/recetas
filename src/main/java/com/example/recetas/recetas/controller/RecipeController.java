@@ -1,8 +1,11 @@
 package com.example.recetas.recetas.controller;
 
 import com.example.recetas.recetas.dto.RecetaDto;
+import com.example.recetas.recetas.dto.RecetaDtoSinMulti;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.RecetaPorUsuarioDto;
+import com.example.recetas.recetas.exception.ApiException;
+import com.example.recetas.recetas.exception.ApiRequestException;
 import com.example.recetas.recetas.model.RecetaPorUsuario;
 import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,42 +35,23 @@ public class RecipeController {
     }
 
     @PostMapping(value="recipe")
-    public ResponseEntity<RecetaDto> submitRecipe(@RequestBody RecetaDto receta){
+    public ResponseEntity<RecetaDtoSinMulti> submitRecipe(@RequestBody RecetaDtoSinMulti receta){
         return ResponseEntity.ok().body(recetaService.submitReceta(receta));
     }
 
-    /*
-    @DeleteMapping(value="recipe")
-    public Receta replaceRecipe(@RequestBody RecetaDto receta, String idReceta){
-    }
-     */
-
-    /*
-    @PutMapping(value="recipe")
-    public Receta editRecipe(@RequestBody RecetaDto receta, String idReceta){
-    }
-
-     */
-
-    @PostMapping(value="/save/{id}")
-    public String saveRecipeForLater(@PathVariable("id") Long recipeId){
-        return ("Receta de id " + recipeId + " guardada con éxito!");
-    }
-
-    @DeleteMapping(value="/delete/{id}")
-    public String deleteRecipeForLater(@PathVariable("id") Long recipeId){
-        return ("Receta de id " + recipeId + " eliminada con éxito!");
-    }
-
-    @PutMapping(value="/qualify/{id}")
-    public String qualifyRecipe(@PathVariable("id") Long recipeId, boolean like){
-        return("Ahora te gusta la receta con id " + recipeId);
-    }
-
     @PostMapping(value="/recipeForLater/{id}/{nickname}")
-    public ResponseEntity<RecetaPorUsuario> getRecipesForLater(@PathVariable("id") Long recipeId,
-                                                               @PathVariable("nickname") String nickname){
-        return ResponseEntity.ok().body(recetaService.submitRecetaForLater(recipeId, nickname));
+    public ResponseEntity<Object> getRecipesForLater(@PathVariable("id") Long recipeId,
+                                                               @PathVariable("nickname") String nickname) throws Exception, ApiException {
+        RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
+        try{
+            recetaPorUsuario = recetaService.submitRecetaForLater(recipeId, nickname);
+        }
+        catch (Exception ex){
+            throw ex;
+        } catch (ApiException e) {
+            throw e;
+        }
+        return ResponseEntity.ok().body(recetaPorUsuario);
     }
 
     @GetMapping(value="/recipeForLater/{nickname}")
