@@ -37,5 +37,11 @@ public interface RecetaRepository extends JpaRepository<Receta, Long> {
 
     Optional<Receta> findById(Long id);
 
+    @Query(value="SELECT r FROM Receta r " +
+            "order by r.calificacion DESC")
+    List<Receta> findBestRecipes();
+
+    List<Receta> findTop5ByOrderByCalificacionDesc();
+
 
 }

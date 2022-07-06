@@ -5,7 +5,6 @@ import com.example.recetas.recetas.dto.RecetaDtoSinMulti;
 import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.RecetaPorUsuarioDto;
 import com.example.recetas.recetas.exception.ApiException;
-import com.example.recetas.recetas.exception.ApiRequestException;
 import com.example.recetas.recetas.model.RecetaPorUsuario;
 import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +61,11 @@ public class RecipeController {
     @DeleteMapping(value="/recipeForLater/{id}")
     public ResponseEntity<String> deteleRecipesForLater(@PathVariable("id") Long id){
         return ResponseEntity.ok().body(recetaService.deleteRecetasForLater(id));
+    }
+
+    @GetMapping(value="/bestRecipes")
+    public ResponseEntity<List<RecetaDto>> bestRecipes(){
+        return ResponseEntity.ok().body(recetaService.bestRecipes());
     }
 
 }

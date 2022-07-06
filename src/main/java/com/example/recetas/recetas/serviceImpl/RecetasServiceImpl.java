@@ -230,7 +230,7 @@ public class RecetasServiceImpl implements RecetaService {
         IngredienteDto ingDto = new IngredienteDto();
         Optional<Ingrediente> ing = ingredienteRepository.findById(utilizado.getIdIngrediente());
         //Valido con los filtros de ingredient y notIngredient
-        if (filter.getNotIngredient() != null && !filter.getNotIngredient().contains(ing)) {
+        if (filter != null && filter.getNotIngredient() != null && !filter.getNotIngredient().contains(ing)) {
             if(filter.getIngredient() != null && filter.getIngredient().contains(ing)){
                 ing.ifPresent(i -> {
                     ingDto.setNombre(i.getNombre());
@@ -265,6 +265,17 @@ public class RecetasServiceImpl implements RecetaService {
         pasoDto.setDescripcion(paso.getTexto());
 
         return pasoDto;
+    }
+
+
+    public List<RecetaDto> bestRecipes(){
+        List<RecetaDto> response = new ArrayList<>();
+        List<Receta> recetas = recetaRepository.findTop5ByOrderByCalificacionDesc();
+        for(Receta receta : recetas){
+            RecetaDto dto = recetaToDto(receta,null);
+            response.add(dto);
+        }
+        return response;
     }
 
 }
