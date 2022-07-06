@@ -10,6 +10,7 @@ import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -146,11 +147,11 @@ public class RecetasServiceImpl implements RecetaService {
                 .filter(r -> r.getIdReceta().equals(receta.get().getIdReceta()))
                 .count() > 0;
         if(recetasPorUsuario.size() >= 5)
-            throw new ApiRequestException("mayor5");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "MAYOR5");
         else if(lePertenece)
-            throw new ApiRequestException("pertenece");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PERTENECE");
         else if(existe)
-            throw new ApiRequestException("existe");
+            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "EXISTE");
 
         RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
         recetaPorUsuario.setIdReceta(receta.get().getIdReceta());

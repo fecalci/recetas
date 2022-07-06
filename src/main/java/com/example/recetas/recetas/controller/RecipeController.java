@@ -40,7 +40,7 @@ public class RecipeController {
     }
 
     @PostMapping(value="/recipeForLater/{id}/{nickname}")
-    public ResponseEntity<Object> getRecipesForLater(@PathVariable("id") Long recipeId,
+    public ResponseEntity<RecetaPorUsuario> getRecipesForLater(@PathVariable("id") Long recipeId,
                                                                @PathVariable("nickname") String nickname) throws Exception, ApiException {
         RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
         try{
