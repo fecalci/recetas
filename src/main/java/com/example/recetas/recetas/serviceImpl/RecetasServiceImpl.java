@@ -1,11 +1,14 @@
 package com.example.recetas.recetas.serviceImpl;
 
 import com.example.recetas.recetas.dto.*;
+import com.example.recetas.recetas.exception.ApiException;
+import com.example.recetas.recetas.exception.ApiRequestException;
 import com.example.recetas.recetas.model.*;
 import com.example.recetas.recetas.repository.*;
 import com.example.recetas.recetas.service.CalificacionService;
 import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -126,22 +129,29 @@ public class RecetasServiceImpl implements RecetaService {
             newPaso.setIdReceta(recetaDto.getReceta().getIdReceta());
             newPaso.setTexto(paso.getDescripcion());
             pasoRepository.save(newPaso);
-/*
-            for(int i = 0; i<paso.getMultimedia().size(); i++){
-                Multimedia multimedia = new Multimedia();
-                multimedia.setUrlContenido(paso.getMultimedia().get(i));
-                multimedia.setIdPaso(paso.getIdPaso());
-                multimediaRepository.save(multimedia);
-            }
- */
+
         }
         return recetaDto;
     }
 
     @Override
-    public RecetaPorUsuario submitRecetaForLater(Long id, String alias) {
+    public RecetaPorUsuario submitRecetaForLater(Long id, String alias) throws Exception {
         Optional<Receta> receta = recetaRepository.findById(id);
         Usuario usuario = userRepository.findByAlias(alias);
+        List<RecetaPorUsuario> recetasPorUsuario = recetaPorUsuarioRepository.findByNickUsuario(alias);
+
+        //Valido si ya existe, si es de el o si la cant es mayor que 5
+        boolean lePertenece = receta.get().getIdUsuario().equals(usuario.getId());
+        boolean existe = recetasPorUsuario.stream()
+                .filter(r -> r.getIdReceta().equals(receta.get().getIdReceta()))
+                .count() > 0;
+        if(recetasPorUsuario.size() >= 5)
+            throw new ApiRequestException("mayor5");
+        else if(lePertenece)
+            throw new ApiRequestException("pertenece");
+        else if(existe)
+            throw new ApiRequestException("existe");
+
         RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
         recetaPorUsuario.setIdReceta(receta.get().getIdReceta());
         recetaPorUsuario.setNickUsuario(alias);
