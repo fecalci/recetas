@@ -220,7 +220,7 @@ public class RecetasServiceImpl implements RecetaService {
         dto.setPasos(pasosList);
 
         List<Calificacion> calificaciones = calificacionService.findByIdReceta(receta.getIdReceta());
-        receta.setCalificacion(calificacionService.getAverageValueByReceta(calificaciones));
+        dto.setCalificacion(calificacionService.getAverageValueByReceta(calificaciones));
 
         return dto;
     }

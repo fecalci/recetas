@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface RecetaRepository extends JpaRepository<Receta, Long> {
 
-    @Query(value = "select DISTINCT r.id_receta, r.id_usuario, r.nombre, r.descripcion,r.foto,  r.porciones, r.cantidad_personas,r.tag,r.calificacion from receta r\n" +
+    @Query(value = "select DISTINCT r.id_receta, r.id_usuario, r.nombre, r.descripcion,r.foto,  r.porciones, r.cantidad_personas,r.tag from receta r\n" +
             "inner join utilizado u on r.id_receta = u.id_receta\n" +
             "inner join ingrediente i on i.id_ingrediente = u.id_ingrediente\n" +
             "where (:nombre is null or r.nombre like lower(CONCAT('%', :nombre, '%')))\n" +
