@@ -151,7 +151,7 @@ public class RecetasServiceImpl implements RecetaService {
         else if(lePertenece)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PERTENECE");
         else if(existe)
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "EXISTE");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "EXISTE");
 
         RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
         recetaPorUsuario.setIdReceta(receta.get().getIdReceta());
