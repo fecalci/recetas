@@ -328,7 +328,7 @@ public class RecetasServiceImpl implements RecetaService {
             pasosOld.stream().forEach(p -> pasoRepository.delete(p));
 
             Utilizado utilizado = new Utilizado();
-            utilizado.setIdReceta(recetaDto.getReceta().getIdReceta());
+            utilizado.setIdReceta(receta.getIdReceta());
             utilizado.setIdIngrediente(ingredienteRepository.findByNombre(ingredienteDto.getNombre()).getIdIngrediente());
             utilizado.setCantidad(ingredienteDto.getCantidad());
             utilizado.setIdUnidad(unidadRepository.findByDescripcion(ingredienteDto.getMedida()).getIdUnidad());
@@ -338,13 +338,13 @@ public class RecetasServiceImpl implements RecetaService {
         for(PasoDto paso : recetaDto.getPasos()){
             Paso newPaso = new Paso();
             newPaso.setNroPaso(toIntExact(paso.getIdPaso()));
-            newPaso.setIdReceta(recetaDto.getReceta().getIdReceta());
+            newPaso.setIdReceta(receta.getIdReceta());
             newPaso.setTexto(paso.getDescripcion());
             pasoRepository.save(newPaso);
 
             Multimedia multimedia = new Multimedia();
             multimedia.setUrlContenido(paso.getMultimedia());
-            multimedia.setIdPaso(paso.getIdPaso());
+            multimedia.setIdPaso(newPaso.getIdPaso());
             multimediaRepository.save(multimedia);
         }
         return recetaDto;
