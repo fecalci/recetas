@@ -45,7 +45,6 @@ public class UserController {
     public String confirmRegistration(@RequestParam("token") String token) {
         VerificationToken verificationToken = emailService.getVerificationToken(token);
         Usuario user = userRepository.findByMail(verificationToken.getMail());
-        Calendar cal = Calendar.getInstance();
         user.setHabilitado(true);
         userRepository.save(user);
         return "Usuario confirmado con éxito";
@@ -57,9 +56,20 @@ public class UserController {
         return "Se envió un token al correo";
     }
 
+    @GetMapping("/confirmToken")
+    public ResponseEntity<String> confirmToken(@RequestParam("token") String token){
+        VerificationToken verificationToken = emailService.getVerificationToken(token);
+        if(verificationToken != null){
+            return ResponseEntity.ok().body("Token Confirmado");
+        }
+        else
+            return ResponseEntity.internalServerError().body("Token incorrecto");
+    }
+
+
     @PutMapping(value="resetPassword")
-    public String changePassword(@RequestParam("token") String token,@RequestParam("newPassword") String newPassword){
-        return userService.resetPassword(token, newPassword);
+    public String changePassword(@RequestParam("mail") String mail,@RequestParam("newPassword") String newPassword){
+        return userService.resetPassword(mail, newPassword);
     }
 
 

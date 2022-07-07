@@ -51,9 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String resetPassword(String token, String password) {
-        VerificationToken verificationToken = emailService.getVerificationToken(token);
-        Usuario user = userRepository.findByMail(verificationToken.getMail());
+    public String resetPassword(String mail, String password) {
+        Usuario user = userRepository.findByMail(mail);
         user.setPassword(password);
         userRepository.save(user);
         return "Se cambió la contraseña con éxito!";
