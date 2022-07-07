@@ -13,7 +13,7 @@ public class Usuario {
 
     private String mail;
     private String alias;
-    private Boolean habilitado;
+    private Boolean habilitado = false;
     private String nombre;
     private String apellido;
     private Date fechaNacimiento;

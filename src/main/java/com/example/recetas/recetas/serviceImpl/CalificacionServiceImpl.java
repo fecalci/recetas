@@ -1,13 +1,16 @@
 package com.example.recetas.recetas.serviceImpl;
 
 import com.example.recetas.recetas.model.Calificacion;
+import com.example.recetas.recetas.model.Receta;
 import com.example.recetas.recetas.repository.CalificacionRepository;
+import com.example.recetas.recetas.repository.RecetaRepository;
 import com.example.recetas.recetas.repository.UserRepository;
 import com.example.recetas.recetas.service.CalificacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CalificacionServiceImpl implements CalificacionService {
@@ -16,7 +19,13 @@ public class CalificacionServiceImpl implements CalificacionService {
     private CalificacionRepository calificacionRepository;
 
     @Autowired
+    private CalificacionService calificacionService;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RecetaRepository recetaRepository;
 
 
     @Override
@@ -25,6 +34,11 @@ public class CalificacionServiceImpl implements CalificacionService {
         calificacionObj.setCalificacion(Math.toIntExact(number));
         calificacionObj.setIdReceta(recipeId);
         calificacionObj.setIdUsuario(userRepository.findByAlias(nickName).getId());
+        Optional<Receta> recipe = recetaRepository.findById(recipeId);
+
+        List<Calificacion> calificaciones = calificacionService.findByIdReceta(recipe.get().getIdReceta());
+        recipe.get().setCalificacion(getAverageValueByReceta(calificaciones));
+
         return calificacionRepository.save(calificacionObj);
     }
 

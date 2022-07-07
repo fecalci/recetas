@@ -10,6 +10,7 @@ import com.example.recetas.recetas.service.RecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -146,11 +147,11 @@ public class RecetasServiceImpl implements RecetaService {
                 .filter(r -> r.getIdReceta().equals(receta.get().getIdReceta()))
                 .count() > 0;
         if(recetasPorUsuario.size() >= 5)
-            throw new ApiRequestException("mayor5");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "MAYOR5");
         else if(lePertenece)
-            throw new ApiRequestException("pertenece");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "PERTENECE");
         else if(existe)
-            throw new ApiRequestException("existe");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "EXISTE");
 
         RecetaPorUsuario recetaPorUsuario = new RecetaPorUsuario();
         recetaPorUsuario.setIdReceta(receta.get().getIdReceta());
@@ -229,7 +230,7 @@ public class RecetasServiceImpl implements RecetaService {
         IngredienteDto ingDto = new IngredienteDto();
         Optional<Ingrediente> ing = ingredienteRepository.findById(utilizado.getIdIngrediente());
         //Valido con los filtros de ingredient y notIngredient
-        if (filter.getNotIngredient() != null && !filter.getNotIngredient().contains(ing)) {
+        if (filter != null && filter.getNotIngredient() != null && !filter.getNotIngredient().contains(ing)) {
             if(filter.getIngredient() != null && filter.getIngredient().contains(ing)){
                 ing.ifPresent(i -> {
                     ingDto.setNombre(i.getNombre());
@@ -264,6 +265,17 @@ public class RecetasServiceImpl implements RecetaService {
         pasoDto.setDescripcion(paso.getTexto());
 
         return pasoDto;
+    }
+
+
+    public List<RecetaDto> bestRecipes(){
+        List<RecetaDto> response = new ArrayList<>();
+        List<Receta> recetas = recetaRepository.findTop5ByOrderByCalificacionDesc();
+        for(Receta receta : recetas){
+            RecetaDto dto = recetaToDto(receta,null);
+            response.add(dto);
+        }
+        return response;
     }
 
 }

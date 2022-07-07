@@ -24,6 +24,8 @@ public class Receta {
     private int cantidadPersonas;
     @Column
     private Long tag;
+    @Column
+    private int calificacion;
 
     public Long getIdReceta() {
         return idReceta;
@@ -87,5 +89,13 @@ public class Receta {
 
     public void setTag(Long tag) {
         this.tag = tag;
+    }
+
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
     }
 }
