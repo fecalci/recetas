@@ -281,7 +281,7 @@ public class RecetasServiceImpl implements RecetaService {
     public PasoDto createPasoDto(Paso paso){
         PasoDto pasoDto = new PasoDto();
         Multimedia multimedia = multimediaRepository.findByIdPaso(paso.getIdPaso());
-        pasoDto.setMultimedia(multimedia.getUrlContenido());
+        pasoDto.setMultimedia(multimedia != null? multimedia.getUrlContenido() : null);
         pasoDto.setIdPaso(paso.getIdPaso());
         pasoDto.setDescripcion(paso.getTexto());
 
