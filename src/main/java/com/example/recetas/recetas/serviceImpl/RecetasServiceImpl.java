@@ -95,7 +95,6 @@ public class RecetasServiceImpl implements RecetaService {
                 }
             }
         }
-
         return recetaDtos;
     }
 
@@ -107,7 +106,7 @@ public class RecetasServiceImpl implements RecetaService {
         //Guardo los ingredientes con sus respectivas cantidades en utilizado
         for(IngredienteDto ingredienteDto : recetaDto.getIngredienteConCantidad()){
             Utilizado utilizado = new Utilizado();
-            utilizado.setIdReceta(recetaDto.getReceta().getIdReceta());
+            utilizado.setIdReceta(receta.getIdReceta());
             utilizado.setIdIngrediente(ingredienteRepository.findByNombre(ingredienteDto.getNombre()).getIdIngrediente());
             utilizado.setCantidad(ingredienteDto.getCantidad());
             utilizado.setIdUnidad(unidadRepository.findByDescripcion(ingredienteDto.getMedida()).getIdUnidad());
@@ -117,13 +116,13 @@ public class RecetasServiceImpl implements RecetaService {
         for(PasoDto paso : recetaDto.getPasos()){
             Paso newPaso = new Paso();
             newPaso.setNroPaso(toIntExact(paso.getIdPaso()));
-            newPaso.setIdReceta(recetaDto.getReceta().getIdReceta());
+            newPaso.setIdReceta(receta.getIdReceta());
             newPaso.setTexto(paso.getDescripcion());
             pasoRepository.save(newPaso);
 
             Multimedia multimedia = new Multimedia();
             multimedia.setUrlContenido(paso.getMultimedia());
-            multimedia.setIdPaso(paso.getIdPaso());
+            multimedia.setIdPaso(newPaso.getIdPaso());
             multimediaRepository.save(multimedia);
         }
         return recetaDto;
@@ -260,13 +259,14 @@ public class RecetasServiceImpl implements RecetaService {
                     ingDto.setCantidad(utilizado.getCantidad());
                 });
             }
-            else if(filter.getIngredient() == null){
+            else{
                 ing.ifPresent(i -> {
                     ingDto.setNombre(i.getNombre());
                     ingDto.setMedida(unidadRepository.findById(utilizado.getIdUnidad()).get().getDescripcion());
                     ingDto.setCantidad(utilizado.getCantidad());
                 });
             }
+
         }
         else{
             ing.ifPresent(i -> {
@@ -316,19 +316,19 @@ public class RecetasServiceImpl implements RecetaService {
 
         Receta editedReceta = dtoToReceta(recetaDto,receta);
 
+        //Elimino los utilizados antiguos
+        List<Utilizado> utilizadosOld = utilizadoRepository.findByIdReceta(receta.getIdReceta());
+        utilizadosOld.stream().forEach(u -> utilizadoRepository.delete(u));
+
+        //Elimino los pasos antiguos
+        List<Paso> pasosOld = pasoRepository.findByIdReceta(receta.getIdReceta());
+        pasosOld.stream().forEach(p -> pasoRepository.delete(p));
+
         //Guardo los ingredientes con sus respectivas cantidades en utilizado
         for(IngredienteDto ingredienteDto : recetaDto.getIngredienteConCantidad()){
 
-            //Elimino los utilizados antiguos
-            List<Utilizado> utilizadosOld = utilizadoRepository.findByIdReceta(receta.getIdReceta());
-            utilizadosOld.stream().forEach(u -> utilizadoRepository.delete(u));
-
-            //Elimino los pasos antiguos
-            List<Paso> pasosOld = pasoRepository.findByIdReceta(receta.getIdReceta());
-            pasosOld.stream().forEach(p -> pasoRepository.delete(p));
-
             Utilizado utilizado = new Utilizado();
-            utilizado.setIdReceta(recetaDto.getReceta().getIdReceta());
+            utilizado.setIdReceta(receta.getIdReceta());
             utilizado.setIdIngrediente(ingredienteRepository.findByNombre(ingredienteDto.getNombre()).getIdIngrediente());
             utilizado.setCantidad(ingredienteDto.getCantidad());
             utilizado.setIdUnidad(unidadRepository.findByDescripcion(ingredienteDto.getMedida()).getIdUnidad());
@@ -338,13 +338,13 @@ public class RecetasServiceImpl implements RecetaService {
         for(PasoDto paso : recetaDto.getPasos()){
             Paso newPaso = new Paso();
             newPaso.setNroPaso(toIntExact(paso.getIdPaso()));
-            newPaso.setIdReceta(recetaDto.getReceta().getIdReceta());
+            newPaso.setIdReceta(receta.getIdReceta());
             newPaso.setTexto(paso.getDescripcion());
             pasoRepository.save(newPaso);
 
             Multimedia multimedia = new Multimedia();
             multimedia.setUrlContenido(paso.getMultimedia());
-            multimedia.setIdPaso(paso.getIdPaso());
+            multimedia.setIdPaso(newPaso.getIdPaso());
             multimediaRepository.save(multimedia);
         }
         return recetaDto;
