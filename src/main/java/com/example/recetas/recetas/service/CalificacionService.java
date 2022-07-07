@@ -1,6 +1,7 @@
 package com.example.recetas.recetas.service;
 
 import com.example.recetas.recetas.model.Calificacion;
+import com.example.recetas.recetas.model.Receta;
 
 import java.util.List;
 
@@ -10,6 +11,6 @@ public interface CalificacionService {
 
     List<Calificacion> findByIdReceta(Long recipeId);
 
-    int getAverageValueByReceta(List<Calificacion> calificaciones);
+    int getAverageValueByReceta(List<Calificacion> calificaciones, Receta receta);
 
 }
