@@ -231,12 +231,18 @@ public class RecetasServiceImpl implements RecetaService {
         dto.setIngredienteConCantidad(ingredientes);
 
         List<Paso> pasos = pasoRepository.findByIdReceta(receta.getIdReceta());
-        for (Paso paso : pasos) {
-            PasoDto pasoDto = createPasoDto(paso);
-            pasosList.add(pasoDto);
+        if(!pasos.isEmpty()){
+            for (Paso paso : pasos) {
+                if(paso != null){
+                    PasoDto pasoDto = createPasoDto(paso);
+                    pasosList.add(pasoDto);
+                }
+
+            }
+            dto.setPasos(pasosList);
+            dto.setCalificacion(receta.getCalificacion());
         }
-        dto.setPasos(pasosList);
-        dto.setCalificacion(receta.getCalificacion());
+
 
         return dto;
     }
@@ -275,7 +281,7 @@ public class RecetasServiceImpl implements RecetaService {
     public PasoDto createPasoDto(Paso paso){
         PasoDto pasoDto = new PasoDto();
         Multimedia multimedia = multimediaRepository.findByIdPaso(paso.getIdPaso());
-        pasoDto.setMultimedia(multimedia.getUrlContenido());
+        pasoDto.setMultimedia(multimedia != null? multimedia.getUrlContenido() : null);
         pasoDto.setIdPaso(paso.getIdPaso());
         pasoDto.setDescripcion(paso.getTexto());
 
