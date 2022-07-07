@@ -231,12 +231,18 @@ public class RecetasServiceImpl implements RecetaService {
         dto.setIngredienteConCantidad(ingredientes);
 
         List<Paso> pasos = pasoRepository.findByIdReceta(receta.getIdReceta());
-        for (Paso paso : pasos) {
-            PasoDto pasoDto = createPasoDto(paso);
-            pasosList.add(pasoDto);
+        if(!pasos.isEmpty()){
+            for (Paso paso : pasos) {
+                if(paso != null){
+                    PasoDto pasoDto = createPasoDto(paso);
+                    pasosList.add(pasoDto);
+                }
+
+            }
+            dto.setPasos(pasosList);
+            dto.setCalificacion(receta.getCalificacion());
         }
-        dto.setPasos(pasosList);
-        dto.setCalificacion(receta.getCalificacion());
+
 
         return dto;
     }
