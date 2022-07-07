@@ -3,7 +3,6 @@ package com.example.recetas.recetas.serviceImpl;
 import com.example.recetas.recetas.dto.FinalUserDto;
 import com.example.recetas.recetas.dto.UsuarioDto;
 import com.example.recetas.recetas.model.Usuario;
-import com.example.recetas.recetas.model.VerificationToken;
 import com.example.recetas.recetas.repository.TokenRepository;
 import com.example.recetas.recetas.repository.UserRepository;
 import com.example.recetas.recetas.service.EmailService;

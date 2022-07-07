@@ -43,5 +43,7 @@ public interface RecetaRepository extends JpaRepository<Receta, Long> {
 
     List<Receta> findTop5ByOrderByCalificacionDesc();
 
+    Receta findByIdUsuarioAndNombre(Long idUsuario, String nombre);
+
 
 }

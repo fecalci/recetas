@@ -24,4 +24,5 @@ public interface RecetaService {
 
     List<RecetaDto> bestRecipes();
 
+    RecetaDto existRecipe(String alias, String recipeName);
 }

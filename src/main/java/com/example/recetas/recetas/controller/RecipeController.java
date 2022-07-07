@@ -6,7 +6,10 @@ import com.example.recetas.recetas.dto.RecetaFilterDto;
 import com.example.recetas.recetas.dto.RecetaPorUsuarioDto;
 import com.example.recetas.recetas.exception.ApiException;
 import com.example.recetas.recetas.model.RecetaPorUsuario;
+import com.example.recetas.recetas.model.Usuario;
+import com.example.recetas.recetas.repository.UserRepository;
 import com.example.recetas.recetas.service.RecetaService;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,13 @@ public class RecipeController {
 
         return ResponseEntity.ok().body(recetaService.getRecetasByFilter(filter));
     }
+
+    @GetMapping(value="/validateRecipe")
+    public ResponseEntity<RecetaDto> existRecipe(@RequestParam("alias") String alias ,
+                                                 @RequestParam("recipeName") String recipeName){
+        return ResponseEntity.ok().body(recetaService.existRecipe(alias,recipeName));
+
+}
 
     @PostMapping(value="recipe")
     public ResponseEntity<RecetaDtoSinMulti> submitRecipe(@RequestBody RecetaDtoSinMulti receta){

@@ -1,8 +1,6 @@
 package com.example.recetas.recetas.serviceImpl;
 
 import com.example.recetas.recetas.dto.*;
-import com.example.recetas.recetas.exception.ApiException;
-import com.example.recetas.recetas.exception.ApiRequestException;
 import com.example.recetas.recetas.model.*;
 import com.example.recetas.recetas.repository.*;
 import com.example.recetas.recetas.service.CalificacionService;
@@ -276,6 +274,13 @@ public class RecetasServiceImpl implements RecetaService {
             response.add(dto);
         }
         return response;
+    }
+
+    @Override
+    public RecetaDto existRecipe(String alias, String recipeName){
+        Usuario user = userRepository.findByAlias(alias);
+        Receta recipe = recetaRepository.findByIdUsuarioAndNombre(user.getId(),recipeName);
+        return recetaToDto(recipe,null);
     }
 
 }
