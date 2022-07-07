@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface MultimediaRepository extends JpaRepository<Multimedia,Long> {
 
-    List<Multimedia> findByIdPaso(Long id);
+    Multimedia findByIdPaso(Long id);
 }

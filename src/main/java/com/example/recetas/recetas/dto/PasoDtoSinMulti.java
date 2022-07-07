@@ -1,7 +1,5 @@
 package com.example.recetas.recetas.dto;
 
-import java.util.List;
-
 public class PasoDtoSinMulti {
 
     private Long idPaso;

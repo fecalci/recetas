@@ -41,10 +41,16 @@ public class RecipeController {
                                                  @RequestParam("recipeName") String recipeName){
         return ResponseEntity.ok().body(recetaService.existRecipe(alias,recipeName));
 
-}
+    }
+
+
+    @PutMapping(value="/recipe/{id}")
+    public ResponseEntity<RecetaDto> editRecipe(@RequestBody RecetaDto receta, @PathVariable("id") Long recipeId){
+        return ResponseEntity.ok().body(recetaService.editRecipe(receta, recipeId));
+    }
 
     @PostMapping(value="recipe")
-    public ResponseEntity<RecetaDtoSinMulti> submitRecipe(@RequestBody RecetaDtoSinMulti receta){
+    public ResponseEntity<RecetaDto> submitRecipe(@RequestBody RecetaDto receta){
         return ResponseEntity.ok().body(recetaService.submitReceta(receta));
     }
 

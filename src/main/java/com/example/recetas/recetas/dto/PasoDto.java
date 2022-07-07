@@ -8,7 +8,7 @@ public class PasoDto {
 
     private String descripcion;
 
-    private List<String> multimedia;
+    private String multimedia;
 
     public Long getIdPaso() {
         return idPaso;
@@ -26,11 +26,11 @@ public class PasoDto {
         this.descripcion = descripcion;
     }
 
-    public List<String> getMultimedia() {
+    public String getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(List<String> multimedia) {
+    public void setMultimedia(String multimedia) {
         this.multimedia = multimedia;
     }
 }
