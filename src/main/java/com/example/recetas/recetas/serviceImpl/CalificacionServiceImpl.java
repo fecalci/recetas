@@ -35,11 +35,11 @@ public class CalificacionServiceImpl implements CalificacionService {
         calificacionObj.setIdReceta(recipeId);
         calificacionObj.setIdUsuario(userRepository.findByAlias(nickName).getId());
         Optional<Receta> recipe = recetaRepository.findById(recipeId);
+        calificacionRepository.save(calificacionObj);
 
         List<Calificacion> calificaciones = calificacionService.findByIdReceta(recipe.get().getIdReceta());
-        recipe.get().setCalificacion(getAverageValueByReceta(calificaciones));
-
-        return calificacionRepository.save(calificacionObj);
+        recipe.get().setCalificacion(getAverageValueByReceta(calificaciones, recipe.get()));
+        return calificacionObj;
     }
 
     @Override
@@ -48,11 +48,14 @@ public class CalificacionServiceImpl implements CalificacionService {
     }
 
     @Override
-    public int getAverageValueByReceta(List<Calificacion> calificaciones) {
+    public int getAverageValueByReceta(List<Calificacion> calificaciones, Receta receta) {
         int finalValue = 0;
         for(Calificacion calificacion : calificaciones){
             finalValue += calificacion.getCalificacion();
         }
-        return finalValue != 0 ? finalValue / calificaciones.size() : 0;
+        finalValue = finalValue != 0 ? finalValue / calificaciones.size() : 0;
+        receta.setCalificacion(finalValue);
+        recetaRepository.save(receta);
+        return finalValue;
     }
 }
