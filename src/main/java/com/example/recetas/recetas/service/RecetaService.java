@@ -14,7 +14,7 @@ public interface RecetaService {
 
     List<RecetaDto> getRecetasByFilter(RecetaFilterDto filter);
 
-    RecetaDtoSinMulti submitReceta(RecetaDtoSinMulti recetaDto);
+    RecetaDto submitReceta(RecetaDto recetaDto);
 
     RecetaPorUsuario submitRecetaForLater(Long id, String alias) throws Exception, ApiException;
 
@@ -24,4 +24,7 @@ public interface RecetaService {
 
     List<RecetaDto> bestRecipes();
 
+    RecetaDto existRecipe(String alias, String recipeName);
+
+    RecetaDto editRecipe(RecetaDto receta, Long id);
 }

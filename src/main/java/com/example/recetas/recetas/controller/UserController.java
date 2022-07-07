@@ -13,9 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Calendar;
-import java.util.Optional;
-
 @RestController
 public class UserController {
 
@@ -38,36 +35,46 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "mail");
         }
         else{
-            emailService.confirmRegistration(usuario);
+            emailService.confirmRegistration(usuario.getMail());
             return ResponseEntity.ok().body(userService.firstRegister(usuario));
         }
     }
 
     @GetMapping("/registrationConfirm")
     public String confirmRegistration(@RequestParam("token") String token) {
-
         VerificationToken verificationToken = emailService.getVerificationToken(token);
-        Usuario user = userRepository.findByAlias(verificationToken.getAlias());
-        Calendar cal = Calendar.getInstance();
+        Usuario user = userRepository.findByMail(verificationToken.getMail());
         user.setHabilitado(true);
         userRepository.save(user);
         return "Usuario confirmado con éxito";
+    }
+
+    @GetMapping("/validationToken")
+    public String sendToken(@RequestParam("mail") String mail){
+        emailService.confirmRegistration(mail);
+        return "Se envió un token al correo";
+    }
+
+    @GetMapping("/confirmToken")
+    public ResponseEntity<String> confirmToken(@RequestParam("token") String token){
+        VerificationToken verificationToken = emailService.getVerificationToken(token);
+        if(verificationToken != null){
+            return ResponseEntity.ok().body("Token Confirmado");
+        }
+        else
+            return ResponseEntity.internalServerError().body("Token incorrecto");
+    }
+
+
+    @PutMapping(value="resetPassword")
+    public String changePassword(@RequestParam("mail") String mail,@RequestParam("newPassword") String newPassword){
+        return userService.resetPassword(mail, newPassword);
     }
 
 
     @PostMapping(value="register/endRegister")
     public ResponseEntity<Usuario> endRegister(@RequestBody FinalUserDto usuario){
         return ResponseEntity.ok().body(userService.endRegister(usuario));
-    }
-
-    @PutMapping(value="resetPassword")
-    public ResponseEntity<Usuario> resetPassword(String password, String validationCode){
-        return ResponseEntity.ok().body(userService.resetPassword(password,validationCode));
-    }
-
-    @GetMapping(value="getValidationCode")
-    public String getValidationCode(String mail){
-        return "Se envió un código al correo solicitado!";
     }
 
     @PostMapping(value="login")

@@ -5,7 +5,7 @@ import com.example.recetas.recetas.model.VerificationToken;
 
 public interface EmailService {
 
-    void confirmRegistration(UsuarioDto usuario);
+    void confirmRegistration(String usuario);
 
     VerificationToken getVerificationToken(String VerificationToken);
 }
