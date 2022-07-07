@@ -95,7 +95,6 @@ public class RecetasServiceImpl implements RecetaService {
                 }
             }
         }
-
         return recetaDtos;
     }
 
@@ -260,13 +259,14 @@ public class RecetasServiceImpl implements RecetaService {
                     ingDto.setCantidad(utilizado.getCantidad());
                 });
             }
-            else if(filter.getIngredient() == null){
+            else{
                 ing.ifPresent(i -> {
                     ingDto.setNombre(i.getNombre());
                     ingDto.setMedida(unidadRepository.findById(utilizado.getIdUnidad()).get().getDescripcion());
                     ingDto.setCantidad(utilizado.getCantidad());
                 });
             }
+
         }
         else{
             ing.ifPresent(i -> {
