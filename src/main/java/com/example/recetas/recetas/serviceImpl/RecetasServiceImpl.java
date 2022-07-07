@@ -316,16 +316,16 @@ public class RecetasServiceImpl implements RecetaService {
 
         Receta editedReceta = dtoToReceta(recetaDto,receta);
 
+        //Elimino los utilizados antiguos
+        List<Utilizado> utilizadosOld = utilizadoRepository.findByIdReceta(receta.getIdReceta());
+        utilizadosOld.stream().forEach(u -> utilizadoRepository.delete(u));
+
+        //Elimino los pasos antiguos
+        List<Paso> pasosOld = pasoRepository.findByIdReceta(receta.getIdReceta());
+        pasosOld.stream().forEach(p -> pasoRepository.delete(p));
+
         //Guardo los ingredientes con sus respectivas cantidades en utilizado
         for(IngredienteDto ingredienteDto : recetaDto.getIngredienteConCantidad()){
-
-            //Elimino los utilizados antiguos
-            List<Utilizado> utilizadosOld = utilizadoRepository.findByIdReceta(receta.getIdReceta());
-            utilizadosOld.stream().forEach(u -> utilizadoRepository.delete(u));
-
-            //Elimino los pasos antiguos
-            List<Paso> pasosOld = pasoRepository.findByIdReceta(receta.getIdReceta());
-            pasosOld.stream().forEach(p -> pasoRepository.delete(p));
 
             Utilizado utilizado = new Utilizado();
             utilizado.setIdReceta(receta.getIdReceta());
