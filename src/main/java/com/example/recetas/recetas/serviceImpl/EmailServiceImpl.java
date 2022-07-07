@@ -33,13 +33,13 @@ public class EmailServiceImpl implements EmailService {
     private UserRepository userRepository;
 
     @Override
-    public void confirmRegistration(UsuarioDto user) {
+    public void confirmRegistration(String mail) {
         String token = generateString("123456789",6);
-        createVerificationToken(user, token);
+        createVerificationToken(mail, token);
 
-        String recipientAddress = user.getMail();
+        String recipientAddress = mail;
         String subject = "Confirmación de Mail CocinAR";
-        String message = "Bienvenido a CocinAR!! Éste es tu código de confirmación para terminar tu registro:" + token;
+        String message = "Bienvenido a CocinAR!! Éste es tu código de confirmación:  " + token;
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
@@ -48,8 +48,8 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(email);
     }
 
-    public void createVerificationToken(UsuarioDto user, String token) {
-        VerificationToken myToken = new VerificationToken(token, user.getAlias());
+    public void createVerificationToken(String mail, String token) {
+        VerificationToken myToken = new VerificationToken(token, mail);
         tokenRepository.save(myToken);
     }
 

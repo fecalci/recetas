@@ -16,13 +16,13 @@ public class VerificationToken {
     @Column
     private String token;
 
-    private String alias;
+    private String mail;
 
     private Date expiryDate;
 
-    public VerificationToken(String token, String alias) {
+    public VerificationToken(String token, String mail) {
         this.token = token;
-        this.alias = alias;
+        this.mail = mail;
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
@@ -56,12 +56,12 @@ public class VerificationToken {
         this.expiryDate = expiryDate;
     }
 
-    public String getAlias() {
-        return alias;
+    public String getMail() {
+        return mail;
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setMail(String alias) {
+        this.mail = alias;
     }
 
     public VerificationToken() {

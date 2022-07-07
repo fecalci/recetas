@@ -3,7 +3,10 @@ package com.example.recetas.recetas.serviceImpl;
 import com.example.recetas.recetas.dto.FinalUserDto;
 import com.example.recetas.recetas.dto.UsuarioDto;
 import com.example.recetas.recetas.model.Usuario;
+import com.example.recetas.recetas.model.VerificationToken;
+import com.example.recetas.recetas.repository.TokenRepository;
 import com.example.recetas.recetas.repository.UserRepository;
+import com.example.recetas.recetas.service.EmailService;
 import com.example.recetas.recetas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TokenRepository tokenRepository;
+
+    @Autowired
+    EmailService emailService;
 
     @Override
     public Usuario firstRegister(UsuarioDto userDto) {
@@ -32,10 +41,6 @@ public class UserServiceImpl implements UserService {
             return null;
     }
 
-    @Override
-    public Usuario resetPassword(String password, String validationCode) {
-        return null;
-    }
 
     @Override
     public Usuario isValidUser(String email, String password) {
@@ -43,6 +48,15 @@ public class UserServiceImpl implements UserService {
         if (user != null)
             return user;
         return null;
+    }
+
+    @Override
+    public String resetPassword(String token, String password) {
+        VerificationToken verificationToken = emailService.getVerificationToken(token);
+        Usuario user = userRepository.findByMail(verificationToken.getMail());
+        user.setPassword(password);
+        userRepository.save(user);
+        return "Se cambió la contraseña con éxito!";
     }
 
     public Usuario mapDtoToUser(Usuario user,FinalUserDto finalUserDto){

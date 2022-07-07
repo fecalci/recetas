@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface TokenRepository extends JpaRepository<VerificationToken, Long> {
 
     VerificationToken findByToken(String token);
+
+    VerificationToken findByMail(String mail);
 }

@@ -15,7 +15,7 @@ public interface UserService {
 
     Usuario endRegister(FinalUserDto finalUserDto);
 
-    Usuario resetPassword(String password, String validationCode);
-
     Usuario isValidUser(String email, String password);
+
+    String resetPassword(String token, String password);
 }
