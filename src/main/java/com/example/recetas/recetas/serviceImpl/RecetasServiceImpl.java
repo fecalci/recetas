@@ -125,7 +125,6 @@ public class RecetasServiceImpl implements RecetaService {
             multimedia.setUrlContenido(paso.getMultimedia());
             multimedia.setIdPaso(paso.getIdPaso());
             multimediaRepository.save(multimedia);
-
         }
         return recetaDto;
     }
@@ -237,9 +236,7 @@ public class RecetasServiceImpl implements RecetaService {
             pasosList.add(pasoDto);
         }
         dto.setPasos(pasosList);
-
-        List<Calificacion> calificaciones = calificacionService.findByIdReceta(receta.getIdReceta());
-        dto.setCalificacion(calificacionService.getAverageValueByReceta(calificaciones));
+        dto.setCalificacion(receta.getCalificacion());
 
         return dto;
     }
