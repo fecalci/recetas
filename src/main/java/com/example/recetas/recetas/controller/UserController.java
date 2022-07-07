@@ -3,13 +3,18 @@ package com.example.recetas.recetas.controller;
 import com.example.recetas.recetas.dto.FinalUserDto;
 import com.example.recetas.recetas.dto.UsuarioDto;
 import com.example.recetas.recetas.model.Usuario;
+import com.example.recetas.recetas.model.VerificationToken;
 import com.example.recetas.recetas.repository.UserRepository;
+import com.example.recetas.recetas.service.EmailService;
 import com.example.recetas.recetas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Calendar;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -20,6 +25,10 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+
     @PostMapping(value ="/register")
     public ResponseEntity<Usuario> register(@RequestBody UsuarioDto usuario) throws Exception {
         if(userRepository.findByAlias(usuario.getAlias()) != null){
@@ -29,9 +38,22 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "mail");
         }
         else{
+            emailService.confirmRegistration(usuario);
             return ResponseEntity.ok().body(userService.firstRegister(usuario));
         }
     }
+
+    @GetMapping("/registrationConfirm")
+    public String confirmRegistration(@RequestParam("token") String token) {
+
+        VerificationToken verificationToken = emailService.getVerificationToken(token);
+        Usuario user = userRepository.findByAlias(verificationToken.getAlias());
+        Calendar cal = Calendar.getInstance();
+        user.setHabilitado(true);
+        userRepository.save(user);
+        return "Usuario confirmado con éxito";
+    }
+
 
     @PostMapping(value="register/endRegister")
     public ResponseEntity<Usuario> endRegister(@RequestBody FinalUserDto usuario){
